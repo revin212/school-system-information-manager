@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Masuk ke SIM Sekolah - The Academic Atelier</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#007e37",
+                    "surface-bright": "#f7f9fb",
+                    "on-tertiary-fixed": "#002109",
+                    "on-primary-fixed": "#00174b",
+                    "on-tertiary-container": "#c1ffc5",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "surface-dim": "#d8dadc",
+                    "inverse-surface": "#2d3133",
+                    "on-tertiary-fixed-variant": "#005321",
+                    "outline-variant": "#c3c6d7",
+                    "on-surface": "#191c1e",
+                    "outline": "#737686",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "primary": "#004ac6",
+                    "error-container": "#ffdad6",
+                    "primary-container": "#2563eb",
+                    "on-secondary-container": "#5c647a",
+                    "on-error-container": "#93000a",
+                    "surface": "#f7f9fb",
+                    "on-primary-container": "#eeefff",
+                    "secondary": "#565e74",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-surface-variant": "#434655",
+                    "tertiary-fixed-dim": "#4ae176",
+                    "surface-container": "#eceef0",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#eff1f3",
+                    "secondary-container": "#dae2fd",
+                    "inverse-primary": "#b4c5ff",
+                    "surface-variant": "#e0e3e5",
+                    "on-secondary-fixed": "#131b2e",
+                    "secondary-fixed": "#dae2fd",
+                    "surface-tint": "#0053db",
+                    "on-secondary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "tertiary": "#006229",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "surface-container-low": "#f2f4f6",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-background": "#191c1e",
+                    "primary-fixed": "#dbe1ff",
+                    "background": "#f7f9fb",
+                    "tertiary-fixed": "#6bff8f",
+                    "surface-container-high": "#e6e8ea"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {},
+            "fontFamily": {
+                    "headline": [
+                            "Inter"
+                    ],
+                    "body": [
+                            "Inter"
+                    ],
+                    "label": [
+                            "Inter"
+                    ]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body min-h-screen flex items-center justify-center p-4 antialiased selection:bg-primary-container selection:text-on-primary-container">
+<main class="w-full max-w-5xl bg-surface-container-lowest rounded-full overflow-hidden flex flex-col md:flex-row min-h-[600px] relative shadow-[0_32px_64px_-12px_rgba(25,28,30,0.06)] border border-outline-variant/15">
+<section class="w-full md:w-1/2 p-8 md:p-12 lg:p-16 flex flex-col justify-center relative z-10 bg-surface-container-lowest">
+<div class="mb-10">
+<div class="flex items-center gap-2 mb-8">
+<div class="w-8 h-8 rounded-lg bg-primary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<span class="font-headline font-black tracking-tighter text-primary text-xl">SIM Sekolah</span>
+</div>
+<h1 class="font-headline text-3xl md:text-4xl font-bold tracking-tight text-on-surface mb-2">Masuk ke SIM Sekolah</h1>
+<p class="font-body text-on-surface-variant text-sm md:text-base">Silakan masukkan kredensial Anda untuk mengakses The Academic Atelier.</p>
+</div>
+<form action="#" class="space-y-6" method="POST">
+<div class="space-y-4">
+<div>
+<label class="block font-label text-xs font-medium text-on-surface-variant mb-1" for="identifier">Email atau NIP</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline text-lg">person</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-2.5 border-0 bg-surface-container-low text-on-surface rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all duration-200 sm:text-sm font-body" id="identifier" name="identifier" placeholder="nama@sekolah.sch.id" type="text"/>
+</div>
+</div>
+<div>
+<div class="flex items-center justify-between mb-1">
+<label class="block font-label text-xs font-medium text-on-surface-variant" for="password">Kata Sandi</label>
+<a class="font-label text-xs font-medium text-primary hover:text-primary-container transition-colors" href="#">Lupa kata sandi?</a>
+</div>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline text-lg">lock</span>
+</div>
+<input class="block w-full pl-10 pr-10 py-2.5 border-0 bg-surface-container-low text-on-surface rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all duration-200 sm:text-sm font-body" id="password" name="password" placeholder="••••••••" type="password"/>
+<button class="absolute inset-y-0 right-0 pr-3 flex items-center text-outline hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-lg">visibility_off</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex items-center">
+<input class="h-4 w-4 text-primary focus:ring-primary border-outline-variant rounded bg-surface-container-lowest" id="remember-me" name="remember-me" type="checkbox"/>
+<label class="ml-2 block text-sm font-body text-on-surface-variant" for="remember-me">
+                        Ingat saya di perangkat ini
+                    </label>
+</div>
+<div>
+<button class="w-full flex justify-center py-3 px-4 border border-transparent rounded-full shadow-sm text-sm font-medium text-on-primary bg-gradient-to-br from-primary to-primary-container hover:from-primary-container hover:to-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-200" type="submit">
+                        Masuk
+                    </button>
+</div>
+</form>
+<div class="mt-8 pt-6 border-t border-outline-variant/15 flex justify-center">
+<p class="text-xs text-on-surface-variant/70 font-body">
+                    © 2023 The Academic Atelier. Hak cipta dilindungi undang-undang.
+                </p>
+</div>
+</section>
+<section class="hidden md:block md:w-1/2 relative bg-surface-container">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-surface-container-low z-0"></div>
+<img alt="Students collaborating in a modern architectural university building" class="absolute inset-0 w-full h-full object-cover object-center mix-blend-overlay opacity-80" data-alt="group of diverse university students studying together around a modern wooden table in a bright airy campus building with large windows and contemporary architecture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCw4yYNcoNdxboC_XxdkvqxnGwBzshXLk2TsVgpUkAH-7rfClenQfRRuoOi19iR5CrS-9qN8iTZDPmdiAQRbKMPyL_fGZAJtk4TamnC-BTYoJsX9hFJ3MK5pJEDGubpBl4zZTC8LX5b7HUtbVXluBP9XdZJnJoxllDPZjTzmztcbVo8bjuZlmMWYsfG6DqwEdLO-4PArviIYkg9S65BrL2pxEe7IT_QozQLX2BO0ghTURhR6Thcw2DzO7iECuUKDpTxipqXa0U2M-PL"/>
+<div class="absolute inset-0 p-12 flex flex-col justify-end z-10 bg-gradient-to-t from-surface-container-low via-surface-container-low/40 to-transparent">
+<div class="max-w-md bg-surface-container-lowest/80 backdrop-blur-2xl p-6 rounded-full shadow-[0_8px_32px_-4px_rgba(25,28,30,0.08)] border border-outline-variant/20">
+<p class="font-headline text-lg font-semibold text-on-surface mb-2 leading-tight">"Platform ini menyederhanakan kompleksitas, memungkinkan kami fokus pada apa yang benar-benar penting: pendidikan."</p>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold text-sm">
+                             DR
+                         </div>
+<div>
+<p class="font-label text-sm font-medium text-on-surface">Dr. Rina Saraswati</p>
+<p class="font-body text-xs text-on-surface-variant">Kepala Sekolah, SMA Negeri 1</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>

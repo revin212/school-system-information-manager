@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Waktu Mengajar - The Academic Atelier</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#007e37",
+                        "surface-bright": "#f7f9fb",
+                        "on-tertiary-fixed": "#002109",
+                        "on-primary-fixed": "#00174b",
+                        "on-tertiary-container": "#c1ffc5",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "surface-dim": "#d8dadc",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary-fixed-variant": "#005321",
+                        "outline-variant": "#c3c6d7",
+                        "on-surface": "#191c1e",
+                        "outline": "#737686",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "primary": "#004ac6",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#2563eb",
+                        "on-secondary-container": "#5c647a",
+                        "on-error-container": "#93000a",
+                        "surface": "#f7f9fb",
+                        "on-primary-container": "#eeefff",
+                        "secondary": "#565e74",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-surface-variant": "#434655",
+                        "tertiary-fixed-dim": "#4ae176",
+                        "surface-container": "#eceef0",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "secondary-container": "#dae2fd",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-variant": "#e0e3e5",
+                        "on-secondary-fixed": "#131b2e",
+                        "secondary-fixed": "#dae2fd",
+                        "surface-tint": "#0053db",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "tertiary": "#006229",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "surface-container-low": "#f2f4f6",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-background": "#191c1e",
+                        "primary-fixed": "#dbe1ff",
+                        "background": "#f7f9fb",
+                        "tertiary-fixed": "#6bff8f",
+                        "surface-container-high": "#e6e8ea"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; color: #191c1e; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased flex">
+<!-- SideNavBar -->
+<nav class="h-screen w-72 fixed left-0 top-0 hidden lg:flex flex-col bg-slate-100 dark:bg-slate-950 border-r border-slate-200/50 dark:border-slate-800/50 z-50">
+<div class="p-6">
+<h1 class="font-black tracking-tighter text-blue-800 dark:text-blue-500 text-xl">The Academic Atelier</h1>
+<p class="text-sm font-medium text-slate-500 mt-1">School Management</p>
+</div>
+<div class="flex flex-col h-full px-4 space-y-2 font-['Inter'] text-sm font-medium">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-200 rounded-xl ease-in-out transform" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-200 rounded-xl ease-in-out transform" href="#">
+<span class="material-symbols-outlined">database</span>
+<span>Master Data</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-200 rounded-xl ease-in-out transform" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>SDM</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-xl relative before:content-[''] before:absolute before:left-0 before:w-1 before:h-6 before:bg-blue-600 before:rounded-full ease-in-out transform transition-all duration-200" href="#">
+<span class="material-symbols-outlined">school</span>
+<span>Akademik</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-200 rounded-xl ease-in-out transform" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span>Keuangan</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-200 rounded-xl ease-in-out transform" href="#">
+<span class="material-symbols-outlined">account_balance</span>
+<span>Sekolah</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-200 rounded-xl ease-in-out transform" href="#">
+<span class="material-symbols-outlined">description</span>
+<span>Laporan</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 lg:ml-72 flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-40 w-full flex items-center justify-between px-8 py-3 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm dark:shadow-none border-b border-slate-100 dark:border-slate-800">
+<div class="flex items-center gap-4">
+<h2 class="text-xl font-bold text-blue-700 dark:text-blue-400 font-['Inter'] antialiased tracking-tight">SIM Sekolah</h2>
+<div class="hidden md:flex gap-4 ml-6 font-['Inter'] text-sm">
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors px-3 py-1.5 rounded-lg" href="#">Kelas</a>
+<a class="text-blue-700 dark:text-blue-400 font-bold border-b-2 border-blue-700 dark:border-blue-400 px-3 py-1.5" href="#">Jadwal</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors px-3 py-1.5 rounded-lg" href="#">Mata Pelajaran</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:bg-slate-200/50 rounded-full transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-200/50 rounded-full transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-slate-300 overflow-hidden">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="close-up portrait of a professional male educator in a bright office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsratvoHhSPZRhaEJbLOqdRn5t7hktn0w8vziiAxul88FYoCqYaOJw7isTz2mKVGCzgihgRkXGf9hdFcK_tzKZKU-2ElKlg7-7exozYlGOk4y_7m554rPK1Y-ntD5Rg8CVZ1L-jgX2gk0Fa4yXop3cLE1d6FM3Q5RHrhS9tvXcalhXTb-0U8SmucadggZvnirZzq8U0QOnPTja7gmE-Ev_vBMF-yKfRo0b9KBmobB79vQGs49VQSMSxE3gyDot79YT-V1EhArMGShN"/>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 p-8 space-y-8">
+<div class="flex justify-between items-end">
+<div>
+<h1 class="text-[1.5rem] font-semibold tracking-[-0.02em] text-on-surface">Waktu Mengajar</h1>
+<p class="text-[0.875rem] text-on-surface-variant mt-1">Kelola slot waktu untuk Bpk. Budi Santoso (Matematika)</p>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-6 py-2.5 rounded-xl font-medium shadow-sm hover:shadow-md transition-all active:scale-95 flex items-center gap-2">
+<span class="material-symbols-outlined text-[1.25rem]">add</span>
+                    Tambah Slot
+                </button>
+</div>
+<!-- Management Area -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Main Schedule List -->
+<div class="col-span-2 space-y-4">
+<!-- Day Group: Senin -->
+<div class="bg-surface-container-lowest rounded-xl p-6 relative">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-[1.125rem] font-semibold text-on-surface">Senin</h3>
+<span class="bg-secondary-container/20 text-on-surface-variant px-3 py-1 rounded-full text-[0.75rem] font-medium">3 Slot</span>
+</div>
+<div class="space-y-3">
+<!-- Slot 1 -->
+<div class="flex items-center gap-4 p-4 bg-surface-container-low rounded-lg hover:bg-surface-container-highest transition-colors group cursor-pointer">
+<span class="material-symbols-outlined text-outline-variant cursor-grab active:cursor-grabbing">drag_indicator</span>
+<div class="flex-1 grid grid-cols-4 gap-4 items-center">
+<div class="col-span-1">
+<div class="text-[0.875rem] font-medium text-on-surface">07:00 - 08:30</div>
+</div>
+<div class="col-span-2">
+<div class="text-[0.875rem] text-on-surface-variant">Matematika Wajib - Kelas XA</div>
+</div>
+<div class="col-span-1 flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[1.25rem]">edit</span></button>
+<button class="text-on-surface-variant hover:text-error transition-colors"><span class="material-symbols-outlined text-[1.25rem]">delete</span></button>
+</div>
+</div>
+</div>
+<!-- Slot 2 -->
+<div class="flex items-center gap-4 p-4 bg-surface-container-low rounded-lg hover:bg-surface-container-highest transition-colors group cursor-pointer border-l-4 border-error-container relative">
+<span class="material-symbols-outlined text-outline-variant cursor-grab active:cursor-grabbing">drag_indicator</span>
+<div class="flex-1 grid grid-cols-4 gap-4 items-center">
+<div class="col-span-1">
+<div class="text-[0.875rem] font-medium text-on-surface">08:30 - 10:00</div>
+</div>
+<div class="col-span-2">
+<div class="text-[0.875rem] text-on-surface-variant">Matematika Peminatan - Kelas XI B</div>
+<div class="text-[0.75rem] text-error mt-1 flex items-center gap-1"><span class="material-symbols-outlined text-[1rem]">warning</span> Bentrok dengan Jadwal Lab</div>
+</div>
+<div class="col-span-1 flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[1.25rem]">edit</span></button>
+<button class="text-on-surface-variant hover:text-error transition-colors"><span class="material-symbols-outlined text-[1.25rem]">delete</span></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Contextual Sidebar / Quick Add -->
+<div class="col-span-1">
+<div class="bg-surface-container-lowest rounded-xl p-6 sticky top-24">
+<h3 class="text-[1.125rem] font-semibold text-on-surface mb-6">Editor Slot Cepat</h3>
+<form class="space-y-5">
+<div>
+<label class="block text-[0.75rem] font-medium text-on-surface-variant mb-1">Hari</label>
+<select class="w-full bg-surface-container-low border-none rounded-md px-4 py-2.5 text-[0.875rem] focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all">
+<option>Senin</option>
+<option>Selasa</option>
+<option>Rabu</option>
+</select>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-[0.75rem] font-medium text-on-surface-variant mb-1">Mulai</label>
+<input class="w-full bg-surface-container-low border-none rounded-md px-4 py-2.5 text-[0.875rem] focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" type="time" value="07:00"/>
+</div>
+<div>
+<label class="block text-[0.75rem] font-medium text-on-surface-variant mb-1">Selesai</label>
+<input class="w-full bg-surface-container-low border-none rounded-md px-4 py-2.5 text-[0.875rem] focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" type="time" value="08:30"/>
+</div>
+</div>
+<div>
+<label class="block text-[0.75rem] font-medium text-on-surface-variant mb-1">Keterangan / Mata Pelajaran</label>
+<input class="w-full bg-surface-container-low border-none rounded-md px-4 py-2.5 text-[0.875rem] focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="Contoh: Matematika Kelas X" type="text"/>
+</div>
+<button class="w-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest px-4 py-2.5 rounded-md font-medium text-[0.875rem] transition-colors mt-2" type="button">Simpan Perubahan</button>
+</form>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

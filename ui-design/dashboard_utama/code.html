@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard - SIM Sekolah</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary-container": "#007e37",
+                        "surface-bright": "#f7f9fb",
+                        "on-tertiary-fixed": "#002109",
+                        "on-primary-fixed": "#00174b",
+                        "on-tertiary-container": "#c1ffc5",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "surface-dim": "#d8dadc",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary-fixed-variant": "#005321",
+                        "outline-variant": "#c3c6d7",
+                        "on-surface": "#191c1e",
+                        "outline": "#737686",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "primary": "#004ac6",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#2563eb",
+                        "on-secondary-container": "#5c647a",
+                        "on-error-container": "#93000a",
+                        "surface": "#f7f9fb",
+                        "on-primary-container": "#eeefff",
+                        "secondary": "#565e74",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-surface-variant": "#434655",
+                        "tertiary-fixed-dim": "#4ae176",
+                        "surface-container": "#eceef0",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "secondary-container": "#dae2fd",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-variant": "#e0e3e5",
+                        "on-secondary-fixed": "#131b2e",
+                        "secondary-fixed": "#dae2fd",
+                        "surface-tint": "#0053db",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "tertiary": "#006229",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "surface-container-low": "#f2f4f6",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-background": "#191c1e",
+                        "primary-fixed": "#dbe1ff",
+                        "background": "#f7f9fb",
+                        "tertiary-fixed": "#6bff8f",
+                        "surface-container-high": "#e6e8ea"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<nav class="h-screen w-72 fixed left-0 top-0 hidden lg:flex flex-col bg-slate-100 dark:bg-slate-950 z-50">
+<div class="p-6">
+<h1 class="font-headline font-black tracking-tighter text-blue-800 dark:text-blue-500 text-2xl">The Academic Atelier</h1>
+<p class="font-label text-sm font-medium text-slate-500 mt-1">School Management</p>
+</div>
+<div class="flex flex-col h-full p-6 space-y-2 overflow-y-auto">
+<a class="bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-xl relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-1 before:h-6 before:bg-blue-600 before:rounded-full flex items-center px-4 py-3 font-label text-sm font-medium group transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+                Dashboard
+            </a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-200 ease-in-out transform rounded-xl flex items-center px-4 py-3 font-label text-sm font-medium" href="#">
+<span class="material-symbols-outlined mr-3">database</span>
+                Master Data
+            </a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-200 ease-in-out transform rounded-xl flex items-center px-4 py-3 font-label text-sm font-medium" href="#">
+<span class="material-symbols-outlined mr-3">group</span>
+                SDM
+            </a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-200 ease-in-out transform rounded-xl flex items-center px-4 py-3 font-label text-sm font-medium" href="#">
+<span class="material-symbols-outlined mr-3">school</span>
+                Akademik
+            </a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-200 ease-in-out transform rounded-xl flex items-center px-4 py-3 font-label text-sm font-medium" href="#">
+<span class="material-symbols-outlined mr-3">payments</span>
+                Keuangan
+            </a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-200 ease-in-out transform rounded-xl flex items-center px-4 py-3 font-label text-sm font-medium" href="#">
+<span class="material-symbols-outlined mr-3">account_balance</span>
+                Sekolah
+            </a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-200 ease-in-out transform rounded-xl flex items-center px-4 py-3 font-label text-sm font-medium" href="#">
+<span class="material-symbols-outlined mr-3">description</span>
+                Laporan
+            </a>
+</div>
+<div class="p-6 mt-auto">
+<div class="flex items-center space-x-3 bg-slate-200/50 dark:bg-slate-800/50 p-3 rounded-xl">
+<img alt="School Logo" class="w-10 h-10 rounded-full" data-alt="close-up portrait of professional male principal wearing glasses and dark suit in soft office lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvhoOmLmxtsdfsk7DpZWPzh6rKEKdyKyHvJmWeBukszD8wIQFz4ulcoxG1BmpvyqC7kuhnm0HIUt67KGE9LpvouDrWchl1YxcW6daPTVJgbGLzWADzcIm9TWkWj2_ygA5XK4zT031TSI8qdCxNEbvn-rxJhGiygJ3q6bSiQSO0b0k7Dfe_pAHK0e9_0CtXoY5whOyVxd9mB8Wyed6DcmUBwCZAvxvPqVJLbR-B9EGF1Sx1rmWT5KFYQDrJOZpZsKh14yGHByOjmxPS"/>
+<div>
+<p class="font-label text-sm font-medium text-slate-800 dark:text-slate-200">Admin Utama</p>
+<p class="font-label text-xs text-slate-500">Administrator</p>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 lg:ml-72 flex flex-col h-screen overflow-hidden bg-surface-container-low relative">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-40 w-full bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm dark:shadow-none font-['Inter'] antialiased tracking-tight">
+<div class="flex items-center justify-between px-8 py-3 w-full">
+<!-- Search Bar (Left) -->
+<div class="flex-1 max-w-md hidden md:flex items-center bg-surface-container-highest rounded-full px-4 py-2">
+<span class="material-symbols-outlined text-on-surface-variant mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm font-body w-full text-on-surface placeholder:text-on-surface-variant/50" placeholder="Cari siswa, guru, atau data..." type="text"/>
+</div>
+<!-- Mobile Logo -->
+<div class="md:hidden flex items-center">
+<span class="text-xl font-bold text-blue-700 dark:text-blue-400">SIM Sekolah</span>
+</div>
+<!-- Right Actions -->
+<div class="flex items-center space-x-4 ml-auto">
+<!-- Global Filters (Desktop) -->
+<div class="hidden lg:flex items-center space-x-3 mr-4">
+<select class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-3 py-1.5 text-sm font-label text-on-surface focus:ring-primary focus:border-primary">
+<option>Tahun Ajaran 2023/2024</option>
+<option>Tahun Ajaran 2022/2023</option>
+</select>
+<select class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-3 py-1.5 text-sm font-label text-on-surface focus:ring-primary focus:border-primary">
+<option>Semua Kelas</option>
+<option>Kelas X</option>
+<option>Kelas XI</option>
+<option>Kelas XII</option>
+</select>
+</div>
+<button class="text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors p-2 rounded-full active:scale-95 duration-150 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="md:hidden text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors p-2 rounded-full active:scale-95 duration-150">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Scrollable Canvas -->
+<main class="flex-1 overflow-y-auto p-6 lg:p-8">
+<div class="max-w-7xl mx-auto space-y-8">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="font-headline text-[1.5rem] font-semibold text-on-surface tracking-tight">Ringkasan Hari Ini</h2>
+<p class="font-body text-sm text-on-surface-variant mt-1">Pantauan cepat kondisi operasional sekolah.</p>
+</div>
+<!-- Mobile Filters -->
+<div class="lg:hidden flex gap-2">
+<select class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-3 py-2 text-sm font-label text-on-surface focus:ring-primary focus:border-primary w-full">
+<option>TA 23/24</option>
+</select>
+</div>
+</div>
+<!-- KPI Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- KPI 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4">
+<p class="font-label text-sm font-medium text-on-surface-variant">Jumlah Siswa</p>
+<div class="w-10 h-10 rounded-full bg-secondary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" data-weight="fill">school</span>
+</div>
+</div>
+<h3 class="font-headline text-[2.75rem] font-bold text-on-surface leading-none mb-2">1,248</h3>
+<div class="flex items-center text-tertiary">
+<span class="material-symbols-outlined text-sm mr-1">trending_up</span>
+<span class="font-label text-xs font-medium">Aktif terdaftar</span>
+</div>
+<div class="absolute -bottom-6 -right-6 w-24 h-24 bg-outline-variant/10 rounded-full blur-2xl group-hover:bg-primary/5 transition-colors"></div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4">
+<p class="font-label text-sm font-medium text-on-surface-variant">Jumlah Guru</p>
+<div class="w-10 h-10 rounded-full bg-secondary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" data-weight="fill">group</span>
+</div>
+</div>
+<h3 class="font-headline text-[2.75rem] font-bold text-on-surface leading-none mb-2">84</h3>
+<div class="flex items-center text-on-surface-variant">
+<span class="material-symbols-outlined text-sm mr-1">check_circle</span>
+<span class="font-label text-xs font-medium">Hadir 100% hari ini</span>
+</div>
+<div class="absolute -bottom-6 -right-6 w-24 h-24 bg-outline-variant/10 rounded-full blur-2xl group-hover:bg-primary/5 transition-colors"></div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4">
+<p class="font-label text-sm font-medium text-on-surface-variant">Tagihan SPP Bulan Ini</p>
+<div class="w-10 h-10 rounded-full bg-secondary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" data-weight="fill">receipt_long</span>
+</div>
+</div>
+<h3 class="font-headline text-[2.0rem] font-bold text-on-surface leading-tight mb-2">Rp 450M</h3>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 mb-2">
+<div class="bg-primary h-1.5 rounded-full" style="width: 65%"></div>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label text-xs text-on-surface-variant">Terkumpul 65%</span>
+<span class="font-label text-xs text-on-surface-variant text-right">Target Rp 690M</span>
+</div>
+<div class="absolute -bottom-6 -right-6 w-24 h-24 bg-outline-variant/10 rounded-full blur-2xl group-hover:bg-primary/5 transition-colors"></div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4">
+<p class="font-label text-sm font-medium text-on-surface-variant">Pembayaran Hari Ini</p>
+<div class="w-10 h-10 rounded-full bg-secondary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" data-weight="fill">payments</span>
+</div>
+</div>
+<h3 class="font-headline text-[2.0rem] font-bold text-on-surface leading-tight mb-2">Rp 12.5M</h3>
+<div class="flex items-center text-tertiary">
+<span class="material-symbols-outlined text-sm mr-1">account_balance_wallet</span>
+<span class="font-label text-xs font-medium">Dari 28 transaksi</span>
+</div>
+<div class="absolute -bottom-6 -right-6 w-24 h-24 bg-outline-variant/10 rounded-full blur-2xl group-hover:bg-primary/5 transition-colors"></div>
+</div>
+</div>
+<!-- Bento Grid Layout for Widgets -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- SPP Tertunggak Teratas (Wide Card) -->
+<div class="bg-surface-container-lowest rounded-xl p-6 lg:col-span-2 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline text-[1.125rem] font-semibold text-on-surface">SPP Tertunggak Teratas</h3>
+<button class="font-label text-sm text-primary font-medium hover:underline">Lihat Semua</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr>
+<th class="font-label text-xs font-medium text-on-surface-variant pb-3 pr-4">Nama Siswa</th>
+<th class="font-label text-xs font-medium text-on-surface-variant pb-3 px-4">Kelas</th>
+<th class="font-label text-xs font-medium text-on-surface-variant pb-3 px-4">Bulan Tertunggak</th>
+<th class="font-label text-xs font-medium text-on-surface-variant pb-3 px-4 text-right">Total Tagihan</th>
+<th class="font-label text-xs font-medium text-on-surface-variant pb-3 pl-4">Aksi</th>
+</tr>
+</thead>
+<tbody>
+<tr class="hover:bg-surface-container-highest transition-colors group">
+<td class="py-4 pr-4 border-none">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container/10 flex items-center justify-center text-primary font-bold text-xs">
+                                                    AW
+                                                </div>
+<div>
+<p class="font-body text-sm font-medium text-on-surface">Ahmad Wijaya</p>
+<p class="font-body text-xs text-on-surface-variant">NIS: 102938</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-4 border-none font-body text-sm text-on-surface-variant">XII MIPA 1</td>
+<td class="py-4 px-4 border-none">
+<span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-error-container text-on-error-container">
+                                                3 Bulan
+                                            </span>
+</td>
+<td class="py-4 px-4 border-none font-body text-sm font-medium text-on-surface text-right">Rp 1.500.000</td>
+<td class="py-4 pl-4 border-none">
+<button class="text-primary hover:text-primary-container p-1 rounded transition-colors opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-sm">mail</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors group">
+<td class="py-4 pr-4 border-none">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container/10 flex items-center justify-center text-primary font-bold text-xs">
+                                                    BS
+                                                </div>
+<div>
+<p class="font-body text-sm font-medium text-on-surface">Budi Santoso</p>
+<p class="font-body text-xs text-on-surface-variant">NIS: 102945</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-4 border-none font-body text-sm text-on-surface-variant">XI IPS 2</td>
+<td class="py-4 px-4 border-none">
+<span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-error-container text-on-error-container">
+                                                2 Bulan
+                                            </span>
+</td>
+<td class="py-4 px-4 border-none font-body text-sm font-medium text-on-surface text-right">Rp 1.000.000</td>
+<td class="py-4 pl-4 border-none">
+<button class="text-primary hover:text-primary-container p-1 rounded transition-colors opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-sm">mail</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors group">
+<td class="py-4 pr-4 border-none">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container/10 flex items-center justify-center text-primary font-bold text-xs">
+                                                    CP
+                                                </div>
+<div>
+<p class="font-body text-sm font-medium text-on-surface">Citra Putri</p>
+<p class="font-body text-xs text-on-surface-variant">NIS: 103012</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-4 border-none font-body text-sm text-on-surface-variant">X MIPA 3</td>
+<td class="py-4 px-4 border-none">
+<span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-error-container text-on-error-container">
+                                                2 Bulan
+                                            </span>
+</td>
+<td class="py-4 px-4 border-none font-body text-sm font-medium text-on-surface text-right">Rp 1.000.000</td>
+<td class="py-4 pl-4 border-none">
+<button class="text-primary hover:text-primary-container p-1 rounded transition-colors opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-sm">mail</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Jadwal Hari Ini (Tall Card) -->
+<div class="bg-surface-container-lowest rounded-xl p-6 lg:col-span-1 flex flex-col h-full relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-5">
+<span class="material-symbols-outlined text-6xl">event</span>
+</div>
+<h3 class="font-headline text-[1.125rem] font-semibold text-on-surface mb-6 relative z-10">Jadwal Hari Ini</h3>
+<div class="space-y-4 relative z-10 flex-1">
+<!-- Event Item -->
+<div class="flex gap-4 group">
+<div class="flex flex-col items-center">
+<span class="font-label text-xs font-bold text-primary">08:00</span>
+<div class="w-0.5 h-full bg-outline-variant/30 my-1 group-last:hidden"></div>
+</div>
+<div class="pb-4 flex-1">
+<div class="bg-surface p-3 rounded-lg border border-outline-variant/10">
+<p class="font-label text-sm font-medium text-on-surface">Rapat Evaluasi Kurikulum</p>
+<p class="font-body text-xs text-on-surface-variant mt-1 flex items-center">
+<span class="material-symbols-outlined text-[14px] mr-1">location_on</span> Ruang Guru
+                                        </p>
+</div>
+</div>
+</div>
+<!-- Event Item -->
+<div class="flex gap-4 group">
+<div class="flex flex-col items-center">
+<span class="font-label text-xs font-bold text-on-surface-variant">10:30</span>
+<div class="w-0.5 h-full bg-outline-variant/30 my-1 group-last:hidden"></div>
+</div>
+<div class="pb-4 flex-1">
+<div class="bg-surface p-3 rounded-lg border border-outline-variant/10">
+<p class="font-label text-sm font-medium text-on-surface">Pertemuan Orang Tua Siswa (X MIPA 1)</p>
+<p class="font-body text-xs text-on-surface-variant mt-1 flex items-center">
+<span class="material-symbols-outlined text-[14px] mr-1">location_on</span> Aula Utama
+                                        </p>
+</div>
+</div>
+</div>
+<!-- Event Item -->
+<div class="flex gap-4 group">
+<div class="flex flex-col items-center">
+<span class="font-label text-xs font-bold text-on-surface-variant">13:00</span>
+<div class="w-0.5 h-full bg-outline-variant/30 my-1 group-last:hidden"></div>
+</div>
+<div class="pb-4 flex-1">
+<div class="bg-surface p-3 rounded-lg border border-outline-variant/10">
+<p class="font-label text-sm font-medium text-on-surface">Pengecekan Fasilitas Laboratorium</p>
+<p class="font-body text-xs text-on-surface-variant mt-1 flex items-center">
+<span class="material-symbols-outlined text-[14px] mr-1">location_on</span> Lab Biologi
+                                        </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

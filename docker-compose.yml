@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: simsekolah-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: simsekolah
+      POSTGRES_PASSWORD: simsekolah
+      POSTGRES_DB: simsekolah
+    ports:
+      - "5432:5432"
+    volumes:
+      - simsekolah_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U simsekolah -d simsekolah"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  simsekolah_pgdata:

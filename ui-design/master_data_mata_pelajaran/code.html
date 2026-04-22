@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Master Data - Mata Pelajaran | SIM Sekolah</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#007e37",
+                        "surface-bright": "#f7f9fb",
+                        "on-tertiary-fixed": "#002109",
+                        "on-primary-fixed": "#00174b",
+                        "on-tertiary-container": "#c1ffc5",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "surface-dim": "#d8dadc",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary-fixed-variant": "#005321",
+                        "outline-variant": "#c3c6d7",
+                        "on-surface": "#191c1e",
+                        "outline": "#737686",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "primary": "#004ac6",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#2563eb",
+                        "on-secondary-container": "#5c647a",
+                        "on-error-container": "#93000a",
+                        "surface": "#f7f9fb",
+                        "on-primary-container": "#eeefff",
+                        "secondary": "#565e74",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-surface-variant": "#434655",
+                        "tertiary-fixed-dim": "#4ae176",
+                        "surface-container": "#eceef0",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "secondary-container": "#dae2fd",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-variant": "#e0e3e5",
+                        "on-secondary-fixed": "#131b2e",
+                        "secondary-fixed": "#dae2fd",
+                        "surface-tint": "#0053db",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "tertiary": "#006229",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "surface-container-low": "#f2f4f6",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-background": "#191c1e",
+                        "primary-fixed": "#dbe1ff",
+                        "background": "#f7f9fb",
+                        "tertiary-fixed": "#6bff8f",
+                        "surface-container-high": "#e6e8ea"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; color: #191c1e; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="h-screen w-72 fixed left-0 top-0 hidden lg:flex flex-col bg-surface-container-low border-r border-outline-variant/15 z-50">
+<div class="p-6">
+<h1 class="font-black tracking-tighter text-primary text-xl">The Academic Atelier</h1>
+<p class="text-sm text-on-surface-variant font-medium mt-1">School Management</p>
+</div>
+<div class="flex flex-col h-full p-4 space-y-2 overflow-y-auto">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all duration-200 font-medium text-sm" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<div class="relative">
+<a class="flex items-center justify-between px-4 py-3 bg-secondary-container/40 text-primary rounded-xl font-medium text-sm transition-all duration-200 before:content-[''] before:absolute before:left-0 before:w-1 before:h-6 before:bg-primary before:rounded-full before:top-1/2 before:-translate-y-1/2" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">database</span>
+                        Master Data
+                    </div>
+<span class="material-symbols-outlined text-lg">expand_less</span>
+</a>
+<div class="flex flex-col mt-1 ml-4 pl-4 border-l-2 border-outline-variant/20 space-y-1">
+<a class="px-4 py-2 text-sm text-primary font-medium rounded-lg bg-surface-container-highest/50" href="#">Mata Pelajaran</a>
+<a class="px-4 py-2 text-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Kelas</a>
+<a class="px-4 py-2 text-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Ruangan</a>
+</div>
+</div>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all duration-200 font-medium text-sm" href="#">
+<span class="material-symbols-outlined">group</span>
+                SDM
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all duration-200 font-medium text-sm" href="#">
+<span class="material-symbols-outlined">school</span>
+                Akademik
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all duration-200 font-medium text-sm" href="#">
+<span class="material-symbols-outlined">payments</span>
+                Keuangan
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all duration-200 font-medium text-sm" href="#">
+<span class="material-symbols-outlined">account_balance</span>
+                Sekolah
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-all duration-200 font-medium text-sm" href="#">
+<span class="material-symbols-outlined">description</span>
+                Laporan
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-72 flex flex-col min-h-screen">
+<!-- TopNavBar (Web Focus) -->
+<header class="sticky top-0 z-40 w-full bg-surface/80 backdrop-blur-xl border-b border-outline-variant/15">
+<div class="flex items-center justify-between px-8 py-4">
+<!-- Breadcrumbs/Title (Instead of Logo on Desktop) -->
+<div class="hidden md:flex items-center gap-2 text-sm font-medium">
+<span class="text-on-surface-variant">Master Data</span>
+<span class="material-symbols-outlined text-base text-outline">chevron_right</span>
+<span class="text-primary font-semibold">Mata Pelajaran</span>
+</div>
+<!-- Mobile Brand -->
+<div class="md:hidden flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-2xl">menu</span>
+<span class="font-bold text-primary text-lg">SIM Sekolah</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container-highest transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/30">
+<img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ6uxKxbhauWfp_TjrWwJc8HwK35vC6fO7015LuE9cww2KJ1YSnURV969AvUyw32zniDoY86okdCiiYM21WIYnCp8U0UpHppkouvJduXqC3Fawsg3INFnK1aFsL_Ty5uL7RZcHj_T6AynsAsDpQ-eN3kMefEMWNTQVDJl47zcpz7LtQcbL4WPQ-kgHyH1FS3VqU5Pc5eYGZXO1BbqdUQWUTW5MwA48kMF4_kTYbkaZ0l8AlFH55tlKOJtgk0PZcrprk-jSodyBXYOA"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<div class="p-8 flex-1 overflow-y-auto">
+<!-- Page Header & Actions -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+<div>
+<h2 class="text-2xl font-semibold text-on-surface tracking-tight mb-1">Data Mata Pelajaran</h2>
+<p class="text-sm text-on-surface-variant">Kelola daftar mata pelajaran yang diajarkan di sekolah.</p>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-5 py-2.5 rounded-xl font-medium text-sm flex items-center gap-2 hover:shadow-lg hover:shadow-primary/20 transition-all active:scale-95">
+<span class="material-symbols-outlined text-sm">add</span>
+                    Tambah Mata Pelajaran
+                </button>
+</div>
+<!-- Toolbar (Search & Filter) -->
+<div class="bg-surface-container-lowest p-4 rounded-xl mb-6 flex flex-col sm:flex-row gap-4 items-center justify-between shadow-sm shadow-on-surface/5">
+<div class="relative w-full sm:w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 bg-surface-container-low border-none rounded-lg text-sm text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-colors" placeholder="Cari Kode atau Nama Pelajaran..." type="text"/>
+</div>
+<div class="flex items-center gap-3 w-full sm:w-auto">
+<div class="relative w-full sm:w-48">
+<select class="w-full appearance-none pl-4 pr-10 py-2.5 bg-surface-container-low border-none rounded-lg text-sm text-on-surface font-medium focus:ring-2 focus:ring-primary cursor-pointer">
+<option value="">Semua Status</option>
+<option value="aktif">Aktif</option>
+<option value="nonaktif">Nonaktif</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Data Table -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm shadow-on-surface/5 overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50 text-xs font-medium text-on-surface-variant uppercase tracking-wider">
+<th class="p-4 pl-6 w-32">Kode</th>
+<th class="p-4">Nama Pelajaran</th>
+<th class="p-4 w-40">Status</th>
+<th class="p-4 pr-6 w-32 text-right">Aksi</th>
+</tr>
+</thead>
+<tbody class="text-sm divide-y divide-outline-variant/10">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-highest/30 transition-colors group">
+<td class="p-4 pl-6 font-medium text-on-surface">MP-001</td>
+<td class="p-4 text-on-surface-variant group-hover:text-primary transition-colors">Matematika Dasar</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-tertiary-container/20 text-tertiary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span>
+                                        Aktif
+                                    </span>
+</td>
+<td class="p-4 pr-6 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-outline hover:text-primary hover:bg-primary/10 transition-colors" title="Edit">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-highest/30 transition-colors group">
+<td class="p-4 pl-6 font-medium text-on-surface">MP-002</td>
+<td class="p-4 text-on-surface-variant group-hover:text-primary transition-colors">Bahasa Indonesia</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-tertiary-container/20 text-tertiary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span>
+                                        Aktif
+                                    </span>
+</td>
+<td class="p-4 pr-6 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-outline hover:text-primary hover:bg-primary/10 transition-colors" title="Edit">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-highest/30 transition-colors group">
+<td class="p-4 pl-6 font-medium text-on-surface">MP-003</td>
+<td class="p-4 text-on-surface-variant group-hover:text-primary transition-colors">Pendidikan Agama Islam</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-surface-variant text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                                        Nonaktif
+                                    </span>
+</td>
+<td class="p-4 pr-6 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-outline hover:text-primary hover:bg-primary/10 transition-colors" title="Edit">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-highest/30 transition-colors group">
+<td class="p-4 pl-6 font-medium text-on-surface">MP-004</td>
+<td class="p-4 text-on-surface-variant group-hover:text-primary transition-colors">Ilmu Pengetahuan Alam</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-tertiary-container/20 text-tertiary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span>
+                                        Aktif
+                                    </span>
+</td>
+<td class="p-4 pr-6 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-outline hover:text-primary hover:bg-primary/10 transition-colors" title="Edit">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-outline hover:text-error hover:bg-error/10 transition-colors" title="Hapus">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination (Ghost Style) -->
+<div class="px-6 py-4 flex items-center justify-between border-t border-outline-variant/10">
+<span class="text-xs text-on-surface-variant">Menampilkan 1-4 dari 45 data</span>
+<div class="flex items-center gap-1">
+<button class="px-3 py-1.5 text-sm font-medium text-outline hover:text-on-surface transition-colors disabled:opacity-50" disabled="">Sebelumnya</button>
+<button class="px-3 py-1.5 text-sm font-medium text-primary bg-primary/10 rounded-md">1</button>
+<button class="px-3 py-1.5 text-sm font-medium text-on-surface-variant hover:text-primary transition-colors rounded-md hover:bg-surface-container">2</button>
+<button class="px-3 py-1.5 text-sm font-medium text-on-surface-variant hover:text-primary transition-colors rounded-md hover:bg-surface-container">3</button>
+<span class="px-2 text-outline">...</span>
+<button class="px-3 py-1.5 text-sm font-medium text-on-surface-variant hover:text-primary transition-colors">Selanjutnya</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Overlay Drawer (Slide-over) - Hidden by default, showing structure -->
+<!-- Add 'hidden' class to the parent div to hide it normally -->
+<div class="fixed inset-0 z-50 flex justify-end hidden">
+<!-- Backdrop -->
+<div class="absolute inset-0 bg-on-surface/20 backdrop-blur-sm transition-opacity"></div>
+<!-- Drawer Panel -->
+<div class="relative w-full max-w-md bg-surface-bright h-full shadow-2xl flex flex-col transform transition-transform duration-300">
+<!-- Drawer Header -->
+<div class="px-6 py-5 border-b border-outline-variant/15 flex items-center justify-between bg-surface-container-lowest">
+<h3 class="text-lg font-semibold text-on-surface">Tambah Mata Pelajaran</h3>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Drawer Body -->
+<div class="p-6 flex-1 overflow-y-auto space-y-6">
+<!-- Field: Kode -->
+<div class="space-y-2">
+<label class="block text-xs font-medium text-on-surface-variant">Kode Mata Pelajaran</label>
+<input class="w-full px-4 py-2.5 bg-surface-container-low border-none rounded-lg text-sm text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-colors" placeholder="e.g. MP-005" type="text"/>
+<p class="text-[11px] text-outline">Gunakan format standar (cth: MP-XXX).</p>
+</div>
+<!-- Field: Nama -->
+<div class="space-y-2">
+<label class="block text-xs font-medium text-on-surface-variant">Nama Pelajaran</label>
+<input class="w-full px-4 py-2.5 bg-surface-container-low border-none rounded-lg text-sm text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-colors" placeholder="Masukkan nama pelajaran..." type="text"/>
+</div>
+<!-- Field: Status -->
+<div class="space-y-2">
+<label class="block text-xs font-medium text-on-surface-variant">Status</label>
+<div class="flex items-center gap-4 mt-2">
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="text-primary focus:ring-primary" name="status" type="radio" value="aktif"/>
+<span class="text-sm text-on-surface">Aktif</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="text-primary focus:ring-primary" name="status" type="radio" value="nonaktif"/>
+<span class="text-sm text-on-surface">Nonaktif</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Drawer Footer -->
+<div class="p-6 border-t border-outline-variant/15 bg-surface-container-lowest flex items-center justify-end gap-3">
+<button class="px-5 py-2.5 rounded-xl font-medium text-sm text-on-surface-variant hover:bg-surface-container transition-colors">Batal</button>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-5 py-2.5 rounded-xl font-medium text-sm hover:shadow-lg hover:shadow-primary/20 transition-all active:scale-95">Simpan Data</button>
+</div>
+</div>
+</div>
+</body></html>

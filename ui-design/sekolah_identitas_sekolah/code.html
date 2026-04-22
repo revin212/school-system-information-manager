@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Identitas Sekolah - SIM Sekolah</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#007e37",
+                      "surface-bright": "#f7f9fb",
+                      "on-tertiary-fixed": "#002109",
+                      "on-primary-fixed": "#00174b",
+                      "on-tertiary-container": "#c1ffc5",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed-variant": "#3f465c",
+                      "surface-dim": "#d8dadc",
+                      "inverse-surface": "#2d3133",
+                      "on-tertiary-fixed-variant": "#005321",
+                      "outline-variant": "#c3c6d7",
+                      "on-surface": "#191c1e",
+                      "outline": "#737686",
+                      "on-tertiary": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "primary": "#004ac6",
+                      "error-container": "#ffdad6",
+                      "primary-container": "#2563eb",
+                      "on-secondary-container": "#5c647a",
+                      "on-error-container": "#93000a",
+                      "surface": "#f7f9fb",
+                      "on-primary-container": "#eeefff",
+                      "secondary": "#565e74",
+                      "surface-container-highest": "#e0e3e5",
+                      "on-surface-variant": "#434655",
+                      "tertiary-fixed-dim": "#4ae176",
+                      "surface-container": "#eceef0",
+                      "on-error": "#ffffff",
+                      "inverse-on-surface": "#eff1f3",
+                      "secondary-container": "#dae2fd",
+                      "inverse-primary": "#b4c5ff",
+                      "surface-variant": "#e0e3e5",
+                      "on-secondary-fixed": "#131b2e",
+                      "secondary-fixed": "#dae2fd",
+                      "surface-tint": "#0053db",
+                      "on-secondary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "tertiary": "#006229",
+                      "on-primary-fixed-variant": "#003ea8",
+                      "secondary-fixed-dim": "#bec6e0",
+                      "surface-container-low": "#f2f4f6",
+                      "primary-fixed-dim": "#b4c5ff",
+                      "on-background": "#191c1e",
+                      "primary-fixed": "#dbe1ff",
+                      "background": "#f7f9fb",
+                      "tertiary-fixed": "#6bff8f",
+                      "surface-container-high": "#e6e8ea"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {},
+              "fontFamily": {
+                      "headline": [
+                              "Inter"
+                      ],
+                      "body": [
+                              "Inter"
+                      ],
+                      "label": [
+                              "Inter"
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="sticky top-0 z-40 w-full bg-surface-bright/80 backdrop-blur-xl border-b-0 shadow-sm flex items-center justify-between px-8 py-3" style="background-color: rgba(247, 249, 251, 0.8);">
+<div class="flex items-center space-x-4">
+<span class="text-xl font-bold text-primary tracking-tight font-headline">SIM Sekolah</span>
+</div>
+<div class="flex items-center space-x-6">
+<div class="hidden md:flex relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-sm focus:ring-2 focus:ring-primary-container w-64 text-on-surface placeholder:text-outline-variant transition-all focus:bg-surface-container-lowest" placeholder="Cari..." type="text"/>
+</div>
+<button aria-label="Notifications" class="p-2 text-on-surface-variant hover:bg-surface-container-highest rounded-full transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button aria-label="User Profile" class="flex items-center space-x-2 p-1 hover:bg-surface-container-highest rounded-full transition-colors pl-2 pr-1 py-1">
+<span class="text-sm font-medium text-on-surface-variant hidden md:block px-2">Admin</span>
+<img alt="User Avatar" class="w-8 h-8 rounded-full ring-2 ring-surface-container-highest object-cover" data-alt="headshot of a smiling professional man in a bright office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaV6IBMyvOM51b8mBk-Vwr9Jn8GLx8OH6IzWXdAD3k74_74T8bhvh2cOnCTIFIXESfmdjFa3AYC0Ohmufs4qkBwe4WMWdoZSbAEN7KaNoioGX1CrkeE_hQLf64uK8VB2LXuqT7og7W5GNTrp138bfZA8FQ-t_ZJnNvliX9wTH3ee7b_6h_riz4Mzg5fc3flU-pLUVEAuwmgg2wFSgiGlNujHfnRBluljRqO36Y7o9z011zX8Nf_XoEWNbbuBemeSZPXTLkpQaFOWtn"/>
+</button>
+</div>
+</nav>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<aside class="h-[calc(100vh-64px)] w-72 sticky left-0 top-[64px] hidden lg:flex flex-col bg-surface-container-low/50">
+<div class="p-6 pb-2">
+<h2 class="text-xs font-semibold text-outline tracking-wider uppercase mb-4">The Academic Atelier</h2>
+<div class="flex items-center space-x-3 mb-6">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-on-primary font-bold shadow-sm shadow-primary/20">
+<span class="material-symbols-outlined text-xl" data-icon="school">school</span>
+</div>
+<div>
+<h3 class="font-bold text-on-surface text-sm leading-tight">School Management</h3>
+<p class="text-xs text-on-surface-variant">Portal Admin</p>
+</div>
+</div>
+</div>
+<nav class="flex flex-col h-full p-4 space-y-1 overflow-y-auto">
+<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 group text-sm font-medium" href="#">
+<span class="material-symbols-outlined mr-3 text-outline group-hover:text-primary transition-colors" data-icon="dashboard">dashboard</span>
+                    Dashboard
+                </a>
+<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 group text-sm font-medium" href="#">
+<span class="material-symbols-outlined mr-3 text-outline group-hover:text-primary transition-colors" data-icon="database">database</span>
+                    Master Data
+                </a>
+<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 group text-sm font-medium" href="#">
+<span class="material-symbols-outlined mr-3 text-outline group-hover:text-primary transition-colors" data-icon="group">group</span>
+                    SDM
+                </a>
+<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 group text-sm font-medium" href="#">
+<span class="material-symbols-outlined mr-3 text-outline group-hover:text-primary transition-colors" data-icon="school">school</span>
+                    Akademik
+                </a>
+<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 group text-sm font-medium" href="#">
+<span class="material-symbols-outlined mr-3 text-outline group-hover:text-primary transition-colors" data-icon="payments">payments</span>
+                    Keuangan
+                </a>
+<!-- Active State -->
+<a class="flex items-center px-4 py-3 bg-secondary-container text-primary rounded-xl relative before:content-[''] before:absolute before:left-0 before:w-1 before:h-6 before:bg-primary before:rounded-full text-sm font-medium transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="account_balance">account_balance</span>
+                    Sekolah
+                </a>
+<a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 group text-sm font-medium" href="#">
+<span class="material-symbols-outlined mr-3 text-outline group-hover:text-primary transition-colors" data-icon="description">description</span>
+                    Laporan
+                </a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto p-6 lg:p-10 bg-surface">
+<!-- Header -->
+<div class="mb-8 max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="text-2xl md:text-3xl font-headline font-bold text-on-surface tracking-tight mb-2">Identitas Sekolah</h1>
+<p class="text-on-surface-variant text-sm md:text-base font-body max-w-2xl">Kelola informasi utama dan identitas visual institusi pendidikan Anda.</p>
+</div>
+<div class="flex items-center space-x-3">
+<button class="px-5 py-2.5 rounded-xl text-sm font-medium text-on-surface-variant bg-surface-container-lowest hover:bg-surface-container-highest transition-colors" type="button">
+                            Batal
+                        </button>
+<button class="px-5 py-2.5 rounded-xl text-sm font-medium text-on-primary bg-gradient-to-br from-primary to-primary-container shadow-sm shadow-primary/20 hover:opacity-90 transition-opacity flex items-center space-x-2" form="school-identity-form" type="submit">
+<span class="material-symbols-outlined text-sm" data-icon="save">save</span>
+<span>Simpan Perubahan</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Content Grid -->
+<div class="max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-3 gap-8">
+<!-- Form Section -->
+<div class="xl:col-span-2 space-y-6">
+<form class="bg-surface-container-lowest rounded-2xl p-6 md:p-8 shadow-sm shadow-surface-container-highest/50" id="school-identity-form">
+<div class="mb-8 pb-6 border-b border-surface-variant/50">
+<h2 class="text-lg font-headline font-semibold text-on-surface mb-1">Informasi Dasar</h2>
+<p class="text-sm text-on-surface-variant">Detail resmi institusi yang terdaftar di sistem nasional.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="col-span-1 md:col-span-2">
+<label class="block text-sm font-medium text-on-surface mb-2" for="nama_sekolah">Nama Sekolah</label>
+<input class="w-full bg-surface-container-low border-transparent focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-xl px-4 py-3 text-on-surface text-sm transition-all" id="nama_sekolah" name="nama_sekolah" placeholder="Masukkan nama sekolah lengkap" type="text" value="SMA Negeri 1 Nusantara"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-on-surface mb-2" for="npsn">NPSN</label>
+<input class="w-full bg-surface-container-low border-transparent focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-xl px-4 py-3 text-on-surface text-sm transition-all font-mono" id="npsn" name="npsn" placeholder="8 digit NPSN" type="text" value="20234567"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-on-surface mb-2" for="jenjang">Jenjang Pendidikan</label>
+<select class="w-full bg-surface-container-low border-transparent focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-xl px-4 py-3 text-on-surface text-sm transition-all appearance-none" id="jenjang" name="jenjang">
+<option selected="" value="sma">SMA / Sederajat</option>
+<option value="smp">SMP / Sederajat</option>
+<option value="sd">SD / Sederajat</option>
+</select>
+</div>
+</div>
+<div class="mt-10 mb-8 pb-6 border-b border-surface-variant/50">
+<h2 class="text-lg font-headline font-semibold text-on-surface mb-1">Kontak &amp; Lokasi</h2>
+<p class="text-sm text-on-surface-variant">Alamat fisik dan informasi komunikasi resmi.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="col-span-1 md:col-span-2">
+<label class="block text-sm font-medium text-on-surface mb-2" for="alamat">Alamat Lengkap</label>
+<textarea class="w-full bg-surface-container-low border-transparent focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-xl px-4 py-3 text-on-surface text-sm transition-all resize-none" id="alamat" name="alamat" placeholder="Jalan, RT/RW, Kelurahan" rows="3">Jl. Pendidikan No. 123, Kel. Suka Maju, Kec. Cerdas Bangsa</textarea>
+</div>
+<div>
+<label class="block text-sm font-medium text-on-surface mb-2" for="provinsi">Provinsi</label>
+<select class="w-full bg-surface-container-low border-transparent focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-xl px-4 py-3 text-on-surface text-sm transition-all appearance-none" id="provinsi" name="provinsi">
+<option selected="" value="dki">DKI Jakarta</option>
+<option value="jabar">Jawa Barat</option>
+<option value="jateng">Jawa Tengah</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-on-surface mb-2" for="kota">Kota / Kabupaten</label>
+<select class="w-full bg-surface-container-low border-transparent focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-xl px-4 py-3 text-on-surface text-sm transition-all appearance-none" id="kota" name="kota">
+<option selected="" value="jaksel">Jakarta Selatan</option>
+<option value="jakpus">Jakarta Pusat</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-on-surface mb-2" for="email">Email Resmi</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm" data-icon="mail">mail</span>
+<input class="w-full bg-surface-container-low border-transparent focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-xl pl-10 pr-4 py-3 text-on-surface text-sm transition-all" id="email" name="email" placeholder="email@sekolah.sch.id" type="email" value="info@sman1nusantara.sch.id"/>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-on-surface mb-2" for="telepon">Nomor Telepon</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm" data-icon="call">call</span>
+<input class="w-full bg-surface-container-low border-transparent focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-xl pl-10 pr-4 py-3 text-on-surface text-sm transition-all" id="telepon" name="telepon" placeholder="(021) xxxxxxx" type="tel" value="(021) 555-0198"/>
+</div>
+</div>
+</div>
+</form>
+</div>
+<!-- Identity Preview & Upload Section -->
+<div class="xl:col-span-1 space-y-6">
+<!-- Logo Upload -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 md:p-8 shadow-sm shadow-surface-container-highest/50">
+<h2 class="text-lg font-headline font-semibold text-on-surface mb-4">Logo Sekolah</h2>
+<div class="flex flex-col items-center justify-center p-8 border-2 border-dashed border-outline-variant rounded-2xl bg-surface-container-low/50 hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="w-24 h-24 mb-4 rounded-full bg-surface-container-lowest shadow-sm flex items-center justify-center overflow-hidden p-2 group-hover:scale-105 transition-transform duration-300">
+<img alt="Current Logo" class="w-full h-full object-cover rounded-full" data-alt="close up of a modern minimalist abstract logo mark consisting of blue geometric shapes on a white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBejekx0r9VU9Rz6RkcLeup0J0ukXT9MZkhSL8ZzmjaTOY0OmpxEKYC7Xjl0zbuMuIPBan6Ynp1BIBrfiLCV9rSlC7ErLXICH6Q36ZF4s0Ix_ZZ6aHtrZk3tA28m6l_pCWX1vH_zBlHLye1_MGqoitYDzoh64xiV8wC-Ok-pqiJnhNqhG98ItwRwhW_vVQFa_8KGYFsjicccM1ilcNH2stJ5tbtjV9YSHa9kAP2rWMCidWjVHMbfjK6j25-Ovj2ibQWmJoYvGuW1bO0"/>
+</div>
+<span class="text-sm font-medium text-primary mb-1">Klik untuk mengganti</span>
+<span class="text-xs text-on-surface-variant text-center max-w-[200px]">Format PNG atau JPG. Maksimal 2MB. Resolusi 1:1 disarankan.</span>
+</div>
+</div>
+<!-- ID Card Preview -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 md:p-8 shadow-sm shadow-surface-container-highest/50">
+<h2 class="text-lg font-headline font-semibold text-on-surface mb-4">Pratinjau Kartu</h2>
+<p class="text-xs text-on-surface-variant mb-6">Tampilan pada kop surat dan dokumen resmi.</p>
+<!-- Preview Card -->
+<div class="bg-gradient-to-br from-surface to-surface-container-low p-6 rounded-2xl border border-surface-variant">
+<div class="flex items-start space-x-4">
+<div class="w-16 h-16 rounded-xl bg-surface-container-lowest shadow-sm flex-shrink-0 overflow-hidden p-1">
+<img alt="Logo Preview" class="w-full h-full object-cover rounded-lg" data-alt="close up of a modern minimalist abstract logo mark consisting of blue geometric shapes on a white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmn4-jDER68L7UinhL7mJWtA9U8Tm-4Pff7v7mHNjHoX2igAkaAslVf5KOAmXAJb4qfD1e55fyqvLRRsAIOqk7J4TrSdYevozw8P4CFvSGAsox0lDq21RxPSqilnjs79r_7HFfbDQo7S4EjtN_3xHW-5mInut48Le2dhoD4AQJwlozfRP1udizkBpnF30hLc8keAkk3EJ_O35X5bxXNZWeRHS5c_3Xt8AC9sgzCw_7ZRg7apzS_k8I7T8PozEWU-c3o2acamHPgXRc"/>
+</div>
+<div>
+<h3 class="font-headline font-bold text-on-surface text-lg leading-tight mb-1">SMA Negeri 1 Nusantara</h3>
+<div class="text-xs text-on-surface-variant space-y-1">
+<p class="flex items-center"><span class="material-symbols-outlined text-[14px] mr-1" data-icon="pin_drop">pin_drop</span> Jakarta Selatan, DKI Jakarta</p>
+<p class="flex items-center"><span class="material-symbols-outlined text-[14px] mr-1" data-icon="fingerprint">fingerprint</span> NPSN: 20234567</p>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-surface-variant/60 flex justify-between items-center">
+<span class="px-2.5 py-1 bg-tertiary-container text-on-tertiary-container text-xs font-medium rounded-md flex items-center">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary mr-1.5"></span>
+                                    Status Aktif
+                                </span>
+<span class="text-xs text-outline font-medium">Terverifikasi</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
