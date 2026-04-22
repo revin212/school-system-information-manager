@@ -10,6 +10,14 @@
   body {
     @apply bg-surface text-on-surface antialiased;
   }
+
+  /* Prevent native select arrow overlapping custom icon */
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: none;
+  }
 }
 
 @layer utilities {
