@@ -57,10 +57,6 @@ export function AppShell() {
             </div>
 
             <div className="flex items-center gap-2">
-              <button className="text-on-surface-variant hover:bg-surface-container-highest transition-colors p-2 rounded-full active:scale-95 duration-150 relative">
-                <span className="material-symbols-outlined">notifications</span>
-                <span className="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
-              </button>
               <Button
                 variant="ghost"
                 size="sm"
