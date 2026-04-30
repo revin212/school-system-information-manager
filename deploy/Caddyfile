@@ -1,0 +1,10 @@
+{$APP_DOMAIN} {
+  encode gzip zstd
+
+  # Web (React static)
+  reverse_proxy / web:80
+
+  # API
+  reverse_proxy /api/* api:8000
+}
+

@@ -74,3 +74,7 @@ VITE_USE_MOCK=false
 - Root `.env.example` berisi env dev untuk backend (port, DB URL, CORS, Better Auth).
 - `apps/web/.env.example` berisi contoh env khusus frontend.
 
+## Deploy ke VPS (Docker)
+
+Lihat panduan lengkap di `deploy/README.md`.
+
