@@ -7,6 +7,8 @@ Target: **1 domain** untuk web + API (cookie session aman), semuanya jalan via D
 - `api`: Node/Express + Drizzle migrations auto-run saat start
 - `postgres`: database
 
+Stack didefinisikan di **`docker-compose.yml` pada root repo** (jalankan dengan `--profile full`).
+
 ### Prasyarat
 
 - VPS Linux (Ubuntu/Debian recommended)
@@ -34,7 +36,7 @@ cd simsekolah
 
 ### 2) Siapkan env production
 
-Copy contoh env:
+**Opsi A — env di folder deploy:**
 
 ```bash
 cd deploy
@@ -43,39 +45,49 @@ cp .env.prod.example .env.prod
 
 Edit `deploy/.env.prod`:
 
-- `APP_DOMAIN`: domain kamu (mis. `sim.example.com`)
-- `POSTGRES_PASSWORD`: ganti password DB
-- `BETTER_AUTH_SECRET`: ganti secret (minimal 32 chars, random)
-- Pastikan `BETTER_AUTH_URL`, `CORS_ORIGIN`, `VITE_API_BASE_URL` pakai `https://<domain>`
+- **`SITE_ADDRESS`**: domain kamu (mis. `sim.example.com`); dipakai Caddy untuk HTTPS otomatis.
+- **`POSTGRES_PASSWORD`**: ganti password DB (dan sesuaikan `DATABASE_URL` jika perlu).
+- **`BETTER_AUTH_SECRET`**: ganti secret (minimal 32 karakter, acak).
+- Pastikan **`BETTER_AUTH_URL`**, **`CORS_ORIGIN`**, **`VITE_API_BASE_URL`** pakai `https://<domain>` yang sama dengan browser.
+
+**Opsi B — env di root** (setara): salin [`.env.docker.example`](../.env.docker.example) ke `.env.docker` di root dan isi nilai produksi.
 
 ### 3) Jalankan container (build + up)
 
-Dari root repo:
+Dari **root repo**:
 
 ```bash
-docker compose -f deploy/docker-compose.prod.yml --env-file deploy/.env.prod up -d --build
+docker compose --profile full --env-file deploy/.env.prod up -d --build
+```
+
+Jika memakai `.env.docker` di root:
+
+```bash
+docker compose --profile full --env-file .env.docker up -d --build
 ```
 
 Cek status:
 
 ```bash
-docker compose -f deploy/docker-compose.prod.yml --env-file deploy/.env.prod ps
-docker compose -f deploy/docker-compose.prod.yml --env-file deploy/.env.prod logs -f --tail=200
+docker compose --profile full --env-file deploy/.env.prod ps
+docker compose --profile full --env-file deploy/.env.prod logs -f --tail=200
 ```
+
+(Sesuaikan `--env-file` jika memakai `.env.docker`.)
 
 ### 4) (Opsional) Seed database
 
 Seed akan membuat user demo (lihat `README.md` root). Jalankan sekali saja.
 
 ```bash
-docker compose -f deploy/docker-compose.prod.yml --env-file deploy/.env.prod exec api npm run db:seed
+docker compose --profile full --env-file deploy/.env.prod exec api npm run db:seed:dist
 ```
 
 ### 5) Update versi (redeploy)
 
 ```bash
 git pull
-docker compose -f deploy/docker-compose.prod.yml --env-file deploy/.env.prod up -d --build
+docker compose --profile full --env-file deploy/.env.prod up -d --build
 ```
 
 ### Catatan penting
@@ -83,4 +95,3 @@ docker compose -f deploy/docker-compose.prod.yml --env-file deploy/.env.prod up 
 - Port publik hanya `80/443` dari Caddy. `api` dan `web` tidak diexpose keluar.
 - Migrations jalan otomatis setiap `api` start (`npm run db:migrate`).
 - Kalau domain belum mengarah ke VPS, Caddy tidak bisa issue sertifikat (HTTPS).
-

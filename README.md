@@ -6,17 +6,54 @@ Monorepo untuk aplikasi manajemen sekolah: backend REST API (Express) + frontend
 
 - **Frontend**: React, TypeScript, Vite, TanStack Query, Tailwind CSS
 - **Backend**: Node.js, Express, TypeScript, Zod, Better Auth (session cookie)
-- **Database**: PostgreSQL (dev via Docker Compose)
+- **Database**: PostgreSQL (Docker Compose: DB saja untuk dev npm, atau full stack lihat bawah)
 - **ORM/Migrations**: Drizzle ORM
 
 ## Struktur repo
 
-- `apps/api`: REST API (`http://localhost:8000`)
+- `apps/api`: REST API (`http://localhost:8000` saat dev npm)
 - `apps/web`: Web app (Vite dev server, default `http://localhost:5173`)
 
-## Menjalankan lokal (dev)
+## Menjalankan dengan Docker (full stack)
 
-### 1) Jalankan PostgreSQL (dev)
+Seluruh stack (**PostgreSQL + API + frontend statik + Caddy**) dijalankan dari root repo.
+
+1. Siapkan env:
+
+```bash
+cp .env.docker.example .env.docker
+```
+
+Edit `.env.docker`:
+
+- **`SITE_ADDRESS`**: hostname produksi (mis. `sim.example.com`, HTTPS otomatis via Caddy) atau **`http://localhost`** untuk uji lokal lewat port 80.
+- **`BETTER_AUTH_URL`**, **`CORS_ORIGIN`**, **`VITE_API_BASE_URL`**: samakan dengan URL yang dipakai browser (mis. `https://domain` atau `http://localhost`).
+- **`BETTER_AUTH_SECRET`**: minimal 32 karakter, acak.
+- **`POSTGRES_PASSWORD`** / **`DATABASE_URL`**: sesuaikan jika mengganti user DB.
+
+2. Build dan jalankan:
+
+```bash
+docker compose --profile full --env-file .env.docker up -d --build
+```
+
+3. Buka app di browser sesuai `SITE_ADDRESS` (mis. `https://sim.example.com` atau `http://localhost`).
+
+4. (Opsional, sekali) Seed user demo:
+
+```bash
+docker compose --profile full --env-file .env.docker exec api npm run db:seed:dist
+```
+
+(Pakai `db:seed:dist` di container: image hanya berisi hasil `build`, bukan sumber `tsx` penuh. Lokal dev tetap `npm run db:seed` di `apps/api`.)
+
+Setelah seed, login bisa memakai identifier `admin` atau `admin@sim.local`, password `password1234` (lihat catatan di bawah).
+
+**Catatan:** `docker compose up -d` **tanpa** `--profile full` hanya menjalankan PostgreSQL (untuk workflow dev npm di bawah). Profile `full` menambahkan `api`, `web`, dan `caddy`.
+
+## Menjalankan lokal (dev dengan npm)
+
+### 1) Jalankan PostgreSQL saja
 
 Dari root repo:
 
@@ -27,6 +64,7 @@ docker compose up -d
 ### 2) Jalankan backend (apps/api)
 
 1) Buat env:
+
 - Copy `.env.example` → `.env` (di root), atau
 - Copy `apps/api/.env.example` → `apps/api/.env`
 
@@ -41,11 +79,13 @@ npm run dev
 ```
 
 Endpoint auth (cookie session):
+
 - `POST /api/auth/login` body: `{ identifier, password }`
 - `POST /api/auth/logout`
 - `GET /api/auth/me`
 
 Demo user hasil seed (dev):
+
 - identifier: `admin` (atau `admin@sim.local`)
 - password: `password1234`
 
@@ -73,8 +113,8 @@ VITE_USE_MOCK=false
 
 - Root `.env.example` berisi env dev untuk backend (port, DB URL, CORS, Better Auth).
 - `apps/web/.env.example` berisi contoh env khusus frontend.
+- Contoh env untuk Docker full stack: `.env.docker.example`.
 
 ## Deploy ke VPS (Docker)
 
-Lihat panduan lengkap di `deploy/README.md`.
-
+Lihat panduan lengkap di [`deploy/README.md`](deploy/README.md) (DNS, HTTPS, dan checklist produksi).

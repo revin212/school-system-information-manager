@@ -1,10 +1,15 @@
-{$APP_DOMAIN} {
+{$SITE_ADDRESS} {
   encode gzip zstd
 
-  # Web (React static)
-  reverse_proxy / web:80
+  handle /api/* {
+    reverse_proxy api:8000
+  }
 
-  # API
-  reverse_proxy /api/* api:8000
+  handle /health {
+    reverse_proxy api:8000
+  }
+
+  handle {
+    reverse_proxy web:80
+  }
 }
-

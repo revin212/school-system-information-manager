@@ -19,6 +19,8 @@ pnpm-debug.log*
 
 ## Env / local overrides
 .env
+.env.docker
+deploy/.env.prod
 .env.*.local
 *.local
 
