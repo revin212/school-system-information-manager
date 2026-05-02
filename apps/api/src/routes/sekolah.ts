@@ -14,7 +14,7 @@ sekolahRouter.get('/api/v1/school-identity', requireAuth, async (_req, res, next
   }
 })
 
-sekolahRouter.patch('/api/v1/school-identity', requireAuth, requireRole(['ADMIN', 'TU']), async (req, res, next) => {
+sekolahRouter.patch('/api/v1/school-identity', requireAuth, requireRole(['ADMIN', 'TU', 'KEPSEK']), async (req, res, next) => {
   try {
     const body = PatchSchoolIdentityBodySchema.parse(req.body)
     res.json(ok(await sekolah.updateSchoolIdentity(body as any)))

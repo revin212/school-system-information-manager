@@ -26,7 +26,7 @@ masterRouter.get('/api/v1/majors', requireAuth, async (req, res, next) => {
   }
 })
 
-masterRouter.post('/api/v1/majors', requireAuth, requireRole(['ADMIN', 'TU']), async (req, res, next) => {
+masterRouter.post('/api/v1/majors', requireAuth, requireRole(['ADMIN', 'TU', 'KEPSEK']), async (req, res, next) => {
   try {
     const body = CreateMajorBodySchema.parse(req.body)
     res.json(ok(await master.createMajor(body)))
@@ -35,7 +35,7 @@ masterRouter.post('/api/v1/majors', requireAuth, requireRole(['ADMIN', 'TU']), a
   }
 })
 
-masterRouter.patch('/api/v1/majors/:id', requireAuth, requireRole(['ADMIN', 'TU']), async (req, res, next) => {
+masterRouter.patch('/api/v1/majors/:id', requireAuth, requireRole(['ADMIN', 'TU', 'KEPSEK']), async (req, res, next) => {
   try {
     const id = z.string().min(1).parse(req.params.id)
     const body = PatchMajorBodySchema.parse(req.body)
@@ -45,7 +45,7 @@ masterRouter.patch('/api/v1/majors/:id', requireAuth, requireRole(['ADMIN', 'TU'
   }
 })
 
-masterRouter.delete('/api/v1/majors/:id', requireAuth, requireRole(['ADMIN', 'TU']), async (req, res, next) => {
+masterRouter.delete('/api/v1/majors/:id', requireAuth, requireRole(['ADMIN', 'TU', 'KEPSEK']), async (req, res, next) => {
   try {
     const id = z.string().min(1).parse(req.params.id)
     await master.deleteMajor(id)
@@ -65,7 +65,7 @@ masterRouter.get('/api/v1/classes', requireAuth, async (req, res, next) => {
   }
 })
 
-masterRouter.post('/api/v1/classes', requireAuth, requireRole(['ADMIN', 'TU']), async (req, res, next) => {
+masterRouter.post('/api/v1/classes', requireAuth, requireRole(['ADMIN', 'TU', 'KEPSEK']), async (req, res, next) => {
   try {
     const body = CreateClassBodySchema.parse(req.body)
     res.json(ok(await master.createClass(body)))
@@ -74,7 +74,7 @@ masterRouter.post('/api/v1/classes', requireAuth, requireRole(['ADMIN', 'TU']), 
   }
 })
 
-masterRouter.patch('/api/v1/classes/:id', requireAuth, requireRole(['ADMIN', 'TU']), async (req, res, next) => {
+masterRouter.patch('/api/v1/classes/:id', requireAuth, requireRole(['ADMIN', 'TU', 'KEPSEK']), async (req, res, next) => {
   try {
     const id = z.string().min(1).parse(req.params.id)
     const body = PatchClassBodySchema.parse(req.body)
@@ -84,7 +84,7 @@ masterRouter.patch('/api/v1/classes/:id', requireAuth, requireRole(['ADMIN', 'TU
   }
 })
 
-masterRouter.delete('/api/v1/classes/:id', requireAuth, requireRole(['ADMIN', 'TU']), async (req, res, next) => {
+masterRouter.delete('/api/v1/classes/:id', requireAuth, requireRole(['ADMIN', 'TU', 'KEPSEK']), async (req, res, next) => {
   try {
     const id = z.string().min(1).parse(req.params.id)
     await master.deleteClass(id)
@@ -104,7 +104,7 @@ masterRouter.get('/api/v1/academic-years', requireAuth, async (req, res, next) =
   }
 })
 
-masterRouter.post('/api/v1/academic-years', requireAuth, requireRole(['ADMIN', 'TU']), async (req, res, next) => {
+masterRouter.post('/api/v1/academic-years', requireAuth, requireRole(['ADMIN', 'TU', 'KEPSEK']), async (req, res, next) => {
   try {
     const body = CreateAcademicYearBodySchema.parse(req.body)
     res.json(ok(await master.createAcademicYear(body)))
@@ -113,7 +113,7 @@ masterRouter.post('/api/v1/academic-years', requireAuth, requireRole(['ADMIN', '
   }
 })
 
-masterRouter.patch('/api/v1/academic-years/:id', requireAuth, requireRole(['ADMIN', 'TU']), async (req, res, next) => {
+masterRouter.patch('/api/v1/academic-years/:id', requireAuth, requireRole(['ADMIN', 'TU', 'KEPSEK']), async (req, res, next) => {
   try {
     const id = z.string().min(1).parse(req.params.id)
     const body = PatchAcademicYearBodySchema.parse(req.body)
@@ -123,7 +123,7 @@ masterRouter.patch('/api/v1/academic-years/:id', requireAuth, requireRole(['ADMI
   }
 })
 
-masterRouter.delete('/api/v1/academic-years/:id', requireAuth, requireRole(['ADMIN', 'TU']), async (req, res, next) => {
+masterRouter.delete('/api/v1/academic-years/:id', requireAuth, requireRole(['ADMIN', 'TU', 'KEPSEK']), async (req, res, next) => {
   try {
     const id = z.string().min(1).parse(req.params.id)
     await master.deleteAcademicYear(id)

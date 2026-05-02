@@ -18,7 +18,7 @@ subjectsRouter.get('/api/v1/subjects', requireAuth, async (req, res, next) => {
   }
 })
 
-subjectsRouter.post('/api/v1/subjects', requireAuth, requireRole(['ADMIN', 'TU']), async (req, res, next) => {
+subjectsRouter.post('/api/v1/subjects', requireAuth, requireRole(['ADMIN', 'TU', 'KEPSEK']), async (req, res, next) => {
   try {
     const body = CreateSubjectBodySchema.parse(req.body)
     const data = await subjectService.createSubject(body)
@@ -28,7 +28,7 @@ subjectsRouter.post('/api/v1/subjects', requireAuth, requireRole(['ADMIN', 'TU']
   }
 })
 
-subjectsRouter.patch('/api/v1/subjects/:id', requireAuth, requireRole(['ADMIN', 'TU']), async (req, res, next) => {
+subjectsRouter.patch('/api/v1/subjects/:id', requireAuth, requireRole(['ADMIN', 'TU', 'KEPSEK']), async (req, res, next) => {
   try {
     const id = z.string().min(1).parse(req.params.id)
     const body = UpsertSubjectBodySchema.parse(req.body)
@@ -39,7 +39,7 @@ subjectsRouter.patch('/api/v1/subjects/:id', requireAuth, requireRole(['ADMIN', 
   }
 })
 
-subjectsRouter.delete('/api/v1/subjects/:id', requireAuth, requireRole(['ADMIN', 'TU']), async (req, res, next) => {
+subjectsRouter.delete('/api/v1/subjects/:id', requireAuth, requireRole(['ADMIN', 'TU', 'KEPSEK']), async (req, res, next) => {
   try {
     const id = z.string().min(1).parse(req.params.id)
     await subjectService.deleteSubject(id)

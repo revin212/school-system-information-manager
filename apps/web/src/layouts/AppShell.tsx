@@ -1,10 +1,14 @@
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { useMemo } from 'react'
+import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { AppBrandIcon } from '../components/brand/AppBrandIcon'
 import { Sidebar } from '../components/ui/Sidebar/Sidebar'
 import { Button } from '../components/ui/Button'
+import { canAccessPath, navigationForRole } from '../features/auth/access'
 import { getAuthUser, setAuthUser } from '../features/auth/authStore'
 
 const breadcrumbLabel: Record<string, string> = {
   '/dashboard': 'Dashboard',
+  '/akademik/jadwal-administratif': 'Jadwal Administratif',
   '/master/mata-pelajaran': 'Mata Pelajaran',
   '/master/jurusan': 'Jurusan',
   '/master/kelas': 'Kelas',
@@ -16,11 +20,18 @@ export function AppShell() {
   const nav = useNavigate()
   const { pathname } = useLocation()
 
+  const navEntries = useMemo(() => navigationForRole(user?.peran ?? 'ADMIN'), [user?.peran])
+
   const crumb = breadcrumbLabel[pathname] ?? 'SIM Sekolah'
+
+  if (user && !canAccessPath(user.peran, pathname)) {
+    return <Navigate to="/dashboard" replace />
+  }
 
   return (
     <div className="bg-surface text-on-surface antialiased flex h-screen overflow-hidden">
       <Sidebar
+        entries={navEntries}
         footer={
           <div className="flex items-center gap-3 bg-surface-container-highest/50 p-3 rounded-xl">
             <div className="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold text-sm">
@@ -51,9 +62,10 @@ export function AppShell() {
             </div>
 
             <div className="md:hidden flex items-center gap-2">
-              <span className="font-headline font-black tracking-tighter text-primary text-lg">
-                SIM Sekolah
-              </span>
+              <div className="rounded-lg bg-primary-container/15 p-0.5 ring-1 ring-outline-variant/10">
+                <AppBrandIcon className="h-8 w-8" />
+              </div>
+              <span className="font-headline font-black tracking-tighter text-primary text-lg">SIM Sekolah</span>
             </div>
 
             <div className="flex items-center gap-2">

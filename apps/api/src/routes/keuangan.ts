@@ -13,8 +13,8 @@ import * as keu from '../services/keuangan'
 
 export const keuanganRouter = Router()
 
-// SPP
-keuanganRouter.get('/api/v1/spp/invoices', requireAuth, async (req, res, next) => {
+// SPP (baca: admin, TU, kepsek — bukan guru)
+keuanganRouter.get('/api/v1/spp/invoices', requireAuth, requireRole(['ADMIN', 'TU', 'KEPSEK']), async (req, res, next) => {
   try {
     const q = ListSppInvoicesQuerySchema.parse(req.query)
     res.json(ok(await keu.listSppInvoices(q)))
@@ -32,7 +32,7 @@ keuanganRouter.post('/api/v1/spp/payments', requireAuth, requireRole(['ADMIN', '
   }
 })
 
-keuanganRouter.get('/api/v1/spp/payments', requireAuth, async (req, res, next) => {
+keuanganRouter.get('/api/v1/spp/payments', requireAuth, requireRole(['ADMIN', 'TU', 'KEPSEK']), async (req, res, next) => {
   try {
     const q = ListSppPaymentsQuerySchema.parse(req.query)
     res.json(ok(await keu.listSppPayments(q)))
@@ -42,7 +42,7 @@ keuanganRouter.get('/api/v1/spp/payments', requireAuth, async (req, res, next) =
 })
 
 // Payroll
-keuanganRouter.get('/api/v1/payroll/slips', requireAuth, async (req, res, next) => {
+keuanganRouter.get('/api/v1/payroll/slips', requireAuth, requireRole(['ADMIN', 'TU', 'KEPSEK']), async (req, res, next) => {
   try {
     const q = ListPayrollSlipsQuerySchema.parse(req.query)
     res.json(ok(await keu.listPayrollSlips(q)))

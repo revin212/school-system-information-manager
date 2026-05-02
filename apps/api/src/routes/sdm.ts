@@ -24,7 +24,7 @@ sdmRouter.get('/api/v1/employees', requireAuth, async (req, res, next) => {
   }
 })
 
-sdmRouter.post('/api/v1/employees', requireAuth, requireRole(['ADMIN', 'TU']), async (req, res, next) => {
+sdmRouter.post('/api/v1/employees', requireAuth, requireRole(['ADMIN', 'TU', 'KEPSEK']), async (req, res, next) => {
   try {
     const body = CreateEmployeeBodySchema.parse(req.body)
     res.json(ok(await sdm.createEmployee(body)))
@@ -33,7 +33,7 @@ sdmRouter.post('/api/v1/employees', requireAuth, requireRole(['ADMIN', 'TU']), a
   }
 })
 
-sdmRouter.patch('/api/v1/employees/:id', requireAuth, requireRole(['ADMIN', 'TU']), async (req, res, next) => {
+sdmRouter.patch('/api/v1/employees/:id', requireAuth, requireRole(['ADMIN', 'TU', 'KEPSEK']), async (req, res, next) => {
   try {
     const id = z.string().min(1).parse(req.params.id)
     const body = PatchEmployeeBodySchema.parse(req.body)
@@ -43,7 +43,7 @@ sdmRouter.patch('/api/v1/employees/:id', requireAuth, requireRole(['ADMIN', 'TU'
   }
 })
 
-sdmRouter.delete('/api/v1/employees/:id', requireAuth, requireRole(['ADMIN', 'TU']), async (req, res, next) => {
+sdmRouter.delete('/api/v1/employees/:id', requireAuth, requireRole(['ADMIN', 'TU', 'KEPSEK']), async (req, res, next) => {
   try {
     const id = z.string().min(1).parse(req.params.id)
     await sdm.deleteEmployee(id)
@@ -63,7 +63,7 @@ sdmRouter.get('/api/v1/students', requireAuth, async (req, res, next) => {
   }
 })
 
-sdmRouter.post('/api/v1/students', requireAuth, requireRole(['ADMIN', 'TU']), async (req, res, next) => {
+sdmRouter.post('/api/v1/students', requireAuth, requireRole(['ADMIN', 'TU', 'KEPSEK']), async (req, res, next) => {
   try {
     const body = CreateStudentBodySchema.parse(req.body)
     res.json(ok(await sdm.createStudent(body)))
@@ -72,7 +72,7 @@ sdmRouter.post('/api/v1/students', requireAuth, requireRole(['ADMIN', 'TU']), as
   }
 })
 
-sdmRouter.patch('/api/v1/students/:id', requireAuth, requireRole(['ADMIN', 'TU']), async (req, res, next) => {
+sdmRouter.patch('/api/v1/students/:id', requireAuth, requireRole(['ADMIN', 'TU', 'KEPSEK']), async (req, res, next) => {
   try {
     const id = z.string().min(1).parse(req.params.id)
     const body = PatchStudentBodySchema.parse(req.body)
@@ -82,7 +82,7 @@ sdmRouter.patch('/api/v1/students/:id', requireAuth, requireRole(['ADMIN', 'TU']
   }
 })
 
-sdmRouter.delete('/api/v1/students/:id', requireAuth, requireRole(['ADMIN', 'TU']), async (req, res, next) => {
+sdmRouter.delete('/api/v1/students/:id', requireAuth, requireRole(['ADMIN', 'TU', 'KEPSEK']), async (req, res, next) => {
   try {
     const id = z.string().min(1).parse(req.params.id)
     await sdm.deleteStudent(id)

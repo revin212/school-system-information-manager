@@ -1,8 +1,11 @@
 import { useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
+import { AppBrandIcon } from '../../brand/AppBrandIcon'
 import { NAV } from './nav'
 import type { NavGroup, NavItem } from './nav'
+
+export type { NavGroup, NavItem }
 
 function cx(...classes: Array<string | false | undefined | null>) {
   return classes.filter(Boolean).join(' ')
@@ -18,31 +21,39 @@ function groupHasActive(group: NavGroup, pathname: string) {
 
 export function Sidebar({
   footer,
+  entries = NAV,
 }: {
   footer?: ReactNode
+  /** Daftar menu (biasanya sudah difilter per peran). Default: NAV penuh. */
+  entries?: Array<NavItem | NavGroup>
 }) {
   const { pathname } = useLocation()
   const autoExpanded = useMemo(() => {
     const expanded: Record<string, boolean> = {}
-    for (const entry of NAV) {
+    for (const entry of entries) {
       if (isGroup(entry)) expanded[entry.key] = groupHasActive(entry, pathname)
     }
     return expanded
-  }, [pathname])
+  }, [pathname, entries])
 
   const [expanded, setExpanded] = useState<Record<string, boolean>>(() => autoExpanded)
 
   return (
     <nav className="h-screen w-72 fixed left-0 top-0 hidden lg:flex flex-col bg-surface-container-low z-50 ghost-border border-y-0 border-l-0">
-      <div className="p-6">
-        <h1 className="font-headline font-black tracking-tighter text-primary text-xl">
-          The Academic Atelier
-        </h1>
-        <p className="font-label text-sm font-medium text-on-surface-variant mt-1">School Management</p>
+      <div className="p-6 flex items-start gap-3">
+        <div className="rounded-xl bg-primary-container/15 p-1 flex items-center justify-center ring-1 ring-outline-variant/10 mt-0.5">
+          <AppBrandIcon className="h-9 w-9" />
+        </div>
+        <div className="min-w-0">
+          <h1 className="font-headline font-black tracking-tighter text-primary text-xl leading-tight">
+            The Academic Atelier
+          </h1>
+          <p className="font-label text-sm font-medium text-on-surface-variant mt-1">School Management</p>
+        </div>
       </div>
 
       <div className="flex flex-col h-full p-4 space-y-2 overflow-y-auto">
-        {NAV.map((entry) => {
+        {entries.map((entry) => {
           if (!isGroup(entry)) {
             return (
               <NavLink
