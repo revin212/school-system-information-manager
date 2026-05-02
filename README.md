@@ -49,6 +49,33 @@ docker compose --profile full --env-file .env.docker exec api npm run db:seed:di
 
 Setelah seed, login bisa memakai identifier `admin` atau `admin@sim.local`, password `password1234` (lihat catatan di bawah).
 
+### Menjalankan ulang Docker (migrasi + seed)
+
+**Migrasi:** Saat container `api` menyala, image menjalankan `npm run db:migrate` lalu server (`apps/api/Dockerfile`). Jadi setelah rebuild/restart, skema database mengikuti file migrasi tanpa perlu perintah tambahan—kecuali Anda ingin menjalankan migrasi manual untuk debug:
+
+```bash
+docker compose --profile full --env-file .env.docker exec api npm run db:migrate
+```
+
+**Alur umum (build ulang + pastikan DB terbaru + data demo):**
+
+```bash
+docker compose --profile full --env-file .env.docker up -d --build
+docker compose --profile full --env-file .env.docker exec api npm run db:seed:dist
+```
+
+Tunggu sampai layanan `postgres` sehat dan `api` sudah jalan sebelum `exec`. Seed boleh diulang; banyak data memakai insert idempotensi (`insertIfMissing`), tetapi duplikat tetap bisa terjadi pada bagian seed yang tidak mengecek duplikat—gunakan DB bersih jika ingin state yang rapat.
+
+**Database dari nol (hapus volume PostgreSQL lalu naikkan lagi):**
+
+```bash
+docker compose --profile full --env-file .env.docker down -v
+docker compose --profile full --env-file .env.docker up -d --build
+docker compose --profile full --env-file .env.docker exec api npm run db:seed:dist
+```
+
+Perintah `down -v` menghapus volume yang dideklarasikan di Compose (termasuk data Postgres). Setelah itu migrasi tetap dijalankan otomatis saat `api` start; seed memuat ulang user demo dan data contoh.
+
 **Catatan:** `docker compose up -d` **tanpa** `--profile full` hanya menjalankan PostgreSQL (untuk workflow dev npm di bawah). Profile `full` menambahkan `api`, `web`, dan `caddy`.
 
 ## Menjalankan lokal (dev dengan npm)
