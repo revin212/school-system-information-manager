@@ -85,6 +85,17 @@ export type TeachingSlot = {
   diubahPada: string
 }
 
+/** Kegiatan administratif per tanggal (bukan jadwal jam pelajaran). */
+export type AdministrativeSchedule = {
+  id: string
+  tanggal: string // YYYY-MM-DD
+  jam: string
+  judul: string
+  lokasi: string
+  dibuatPada: string
+  diubahPada: string
+}
+
 export type ScheduleItem = {
   id: string
   tahunAkademikId: string

@@ -8,6 +8,7 @@ export type MockDb = {
   employees?: unknown[]
   students?: unknown[]
   teachingSlots?: unknown[]
+  administrativeSchedules?: unknown[]
   schedules?: unknown[]
   gradeCategories?: unknown[]
   gradeEntries?: unknown[]

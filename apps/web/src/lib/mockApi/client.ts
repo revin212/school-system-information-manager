@@ -43,6 +43,7 @@ import type {
   Subject,
   SubjectStatus,
   TeachingSlot,
+  AdministrativeSchedule,
   Weekday,
 } from './types'
 
@@ -62,6 +63,7 @@ type Db = {
   employees: Employee[]
   students: Student[]
   teachingSlots: TeachingSlot[]
+  administrativeSchedules: AdministrativeSchedule[]
   schedules: ScheduleItem[]
   gradeCategories: GradeCategory[]
   gradeEntries: GradeEntry[]
@@ -88,6 +90,21 @@ function initDb(): Db {
   const teachingSlots =
     (stored?.teachingSlots?.length ? (stored.teachingSlots as TeachingSlot[]) : TEACHING_SLOTS_FIXTURE) ??
     TEACHING_SLOTS_FIXTURE
+  const pad = (n: number) => String(n).padStart(2, '0')
+  const todayStr = (() => {
+    const d = new Date()
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
+  })()
+  const nowClient = new Date().toISOString()
+  const defaultAdminSchedules: AdministrativeSchedule[] = [
+    { id: 'adm_1', tanggal: todayStr, jam: '08:00', judul: 'Rapat Evaluasi Kurikulum', lokasi: 'Ruang Guru', dibuatPada: nowClient, diubahPada: nowClient },
+    { id: 'adm_2', tanggal: todayStr, jam: '10:30', judul: 'Pertemuan Orang Tua Siswa (X MIPA 1)', lokasi: 'Aula Utama', dibuatPada: nowClient, diubahPada: nowClient },
+    { id: 'adm_3', tanggal: todayStr, jam: '13:00', judul: 'Pengecekan Fasilitas Laboratorium', lokasi: 'Lab Biologi', dibuatPada: nowClient, diubahPada: nowClient },
+  ]
+  const administrativeSchedules =
+    (stored?.administrativeSchedules?.length
+      ? (stored.administrativeSchedules as AdministrativeSchedule[])
+      : defaultAdminSchedules) ?? defaultAdminSchedules
   const schedules =
     (stored?.schedules?.length ? (stored.schedules as ScheduleItem[]) : SCHEDULES_FIXTURE) ?? SCHEDULES_FIXTURE
   const gradeCategories =
@@ -115,6 +132,7 @@ function initDb(): Db {
     employees,
     students,
     teachingSlots,
+    administrativeSchedules,
     schedules,
     gradeCategories,
     gradeEntries,
@@ -136,6 +154,7 @@ function persist() {
     employees: db.employees,
     students: db.students,
     teachingSlots: db.teachingSlots,
+    administrativeSchedules: db.administrativeSchedules,
     schedules: db.schedules,
     gradeCategories: db.gradeCategories,
     gradeEntries: db.gradeEntries,
@@ -676,6 +695,93 @@ export async function updateTeachingSlot(
 export async function deleteTeachingSlot(id: string): Promise<void> {
   await delay(200 + Math.round(Math.random() * 240))
   db.teachingSlots = db.teachingSlots.filter((s) => s.id !== id)
+  persist()
+}
+
+// =========================
+// Akademik: Jadwal Administratif
+// =========================
+
+export type ListAdministrativeSchedulesParams = {
+  tanggal?: string
+  dari?: string
+  sampai?: string
+}
+
+export async function listAdministrativeSchedules(
+  params: ListAdministrativeSchedulesParams,
+): Promise<AdministrativeSchedule[]> {
+  await delay(200 + Math.round(Math.random() * 200))
+  const t = (params.tanggal ?? '').trim()
+  if (t) {
+    return db.administrativeSchedules
+      .filter((x) => x.tanggal === t)
+      .sort((a, b) => a.jam.localeCompare(b.jam))
+  }
+  const dari = (params.dari ?? '').trim()
+  const sampai = (params.sampai ?? '').trim()
+  if (dari && sampai) {
+    return db.administrativeSchedules
+      .filter((x) => x.tanggal >= dari && x.tanggal <= sampai)
+      .sort((a, b) => a.tanggal.localeCompare(b.tanggal) || a.jam.localeCompare(b.jam))
+  }
+  return []
+}
+
+export async function createAdministrativeSchedule(input: {
+  tanggal: string
+  jam: string
+  judul: string
+  lokasi: string
+}): Promise<AdministrativeSchedule> {
+  await delay(220 + Math.round(Math.random() * 220))
+  const judul = input.judul.trim()
+  const lokasi = input.lokasi.trim()
+  if (!judul) throw new Error('Judul kegiatan wajib diisi.')
+  if (!lokasi) throw new Error('Lokasi wajib diisi.')
+  const now = new Date().toISOString()
+  const row: AdministrativeSchedule = {
+    id: uid('adm'),
+    tanggal: input.tanggal,
+    jam: input.jam,
+    judul,
+    lokasi,
+    dibuatPada: now,
+    diubahPada: now,
+  }
+  db.administrativeSchedules = [row, ...db.administrativeSchedules]
+  persist()
+  return row
+}
+
+export async function updateAdministrativeSchedule(
+  id: string,
+  patch: Partial<Pick<AdministrativeSchedule, 'tanggal' | 'jam' | 'judul' | 'lokasi'>>,
+): Promise<AdministrativeSchedule> {
+  await delay(200 + Math.round(Math.random() * 220))
+  const idx = db.administrativeSchedules.findIndex((s) => s.id === id)
+  if (idx < 0) throw new Error('Data tidak ditemukan.')
+  const cur = db.administrativeSchedules[idx]
+  const judul = (patch.judul ?? cur.judul).trim()
+  const lokasi = (patch.lokasi ?? cur.lokasi).trim()
+  if (!judul) throw new Error('Judul kegiatan wajib diisi.')
+  if (!lokasi) throw new Error('Lokasi wajib diisi.')
+  const updated: AdministrativeSchedule = {
+    ...cur,
+    tanggal: patch.tanggal ?? cur.tanggal,
+    jam: patch.jam ?? cur.jam,
+    judul,
+    lokasi,
+    diubahPada: new Date().toISOString(),
+  }
+  db.administrativeSchedules[idx] = updated
+  persist()
+  return updated
+}
+
+export async function deleteAdministrativeSchedule(id: string): Promise<void> {
+  await delay(180 + Math.round(Math.random() * 200))
+  db.administrativeSchedules = db.administrativeSchedules.filter((s) => s.id !== id)
   persist()
 }
 

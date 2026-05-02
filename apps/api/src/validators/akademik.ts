@@ -1,5 +1,9 @@
 import { z } from 'zod'
 
+const isoDate = z
+  .string()
+  .regex(/^\d{4}-\d{2}-\d{2}$/, { message: 'Format tanggal harus YYYY-MM-DD.' })
+
 export const WeekdaySchema = z.enum(['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'])
 export const ScheduleStatusSchema = z.enum(['aktif', 'bentrok'])
 export const GradebookStatusSchema = z.enum(['draft', 'published'])
@@ -43,6 +47,43 @@ export const CreateScheduleBodySchema = z.object({
 })
 
 export const PatchScheduleBodySchema = CreateScheduleBodySchema.partial()
+
+export const ListAdministrativeSchedulesQuerySchema = z
+  .object({
+    tanggal: z.string().optional().default(''),
+    dari: z.string().optional().default(''),
+    sampai: z.string().optional().default(''),
+  })
+  .superRefine((q, ctx) => {
+    const t = q.tanggal.trim()
+    const d = q.dari.trim()
+    const s = q.sampai.trim()
+    if (t) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(t)) {
+        ctx.addIssue({ code: 'custom', message: 'Format tanggal harus YYYY-MM-DD.', path: ['tanggal'] })
+      }
+      return
+    }
+    if (!d && !s) return
+    if (!d || !s) {
+      ctx.addIssue({ code: 'custom', message: 'Parameter dari dan sampai harus diisi bersamaan.', path: ['dari'] })
+      return
+    }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || !/^\d{4}-\d{2}-\d{2}$/.test(s)) {
+      ctx.addIssue({ code: 'custom', message: 'dari/sampai harus YYYY-MM-DD.', path: ['dari'] })
+    } else if (d > s) {
+      ctx.addIssue({ code: 'custom', message: 'Tanggal awal tidak boleh setelah akhir.', path: ['dari'] })
+    }
+  })
+
+export const CreateAdministrativeScheduleBodySchema = z.object({
+  tanggal: isoDate,
+  jam: z.string().min(1),
+  judul: z.string().min(1),
+  lokasi: z.string().min(1),
+})
+
+export const PatchAdministrativeScheduleBodySchema = CreateAdministrativeScheduleBodySchema.partial()
 
 export const ListGradeCategoriesQuerySchema = z.object({
   tahunAkademikId: z.string(),

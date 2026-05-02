@@ -1,4 +1,4 @@
-import { pgEnum, pgTable, text, integer, timestamp, unique } from 'drizzle-orm/pg-core'
+import { pgEnum, pgTable, text, integer, timestamp, date, unique } from 'drizzle-orm/pg-core'
 
 export const weekdayEnum = pgEnum('weekday', ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'])
 export const scheduleStatusEnum = pgEnum('schedule_status', ['aktif', 'bentrok'])
@@ -26,6 +26,17 @@ export const schedules = pgTable('schedules', {
   guruId: text('guru_id').notNull(),
   ruang: text('ruang').notNull(),
   status: scheduleStatusEnum('status').notNull(),
+  dibuatPada: timestamp('dibuat_pada', { withTimezone: true }).notNull(),
+  diubahPada: timestamp('diubah_pada', { withTimezone: true }).notNull(),
+})
+
+/** Jadwal kegiatan administratif / non-jam-pelajaran (tampil di "Jadwal Hari Ini" per tanggal). */
+export const administrativeSchedules = pgTable('administrative_schedules', {
+  id: text('id').primaryKey(),
+  tanggal: date('tanggal', { mode: 'string' }).notNull(),
+  jam: text('jam').notNull(),
+  judul: text('judul').notNull(),
+  lokasi: text('lokasi').notNull(),
   dibuatPada: timestamp('dibuat_pada', { withTimezone: true }).notNull(),
   diubahPada: timestamp('diubah_pada', { withTimezone: true }).notNull(),
 })

@@ -1,7 +1,14 @@
-import { and, eq, inArray, sql } from 'drizzle-orm'
+import { and, asc, eq, gte, inArray, lte, sql } from 'drizzle-orm'
 import { randomUUID } from 'node:crypto'
 import { db } from '../db/client'
-import { gradeCategories, gradeEntries, gradeScores, schedules, teachingSlots } from '../db/schema'
+import {
+  administrativeSchedules,
+  gradeCategories,
+  gradeEntries,
+  gradeScores,
+  schedules,
+  teachingSlots,
+} from '../db/schema'
 import { AppError } from '../http/errors'
 
 export type Weekday = 'Senin' | 'Selasa' | 'Rabu' | 'Kamis' | 'Jumat' | 'Sabtu'
@@ -30,6 +37,16 @@ export type ScheduleDto = {
   guruId: string
   ruang: string
   status: ScheduleStatus
+  dibuatPada: string
+  diubahPada: string
+}
+
+export type AdministrativeScheduleDto = {
+  id: string
+  tanggal: string
+  jam: string
+  judul: string
+  lokasi: string
   dibuatPada: string
   diubahPada: string
 }
@@ -83,6 +100,18 @@ function scheduleDto(row: typeof schedules.$inferSelect): ScheduleDto {
     guruId: row.guruId,
     ruang: row.ruang,
     status: row.status as ScheduleStatus,
+    dibuatPada: row.dibuatPada.toISOString(),
+    diubahPada: row.diubahPada.toISOString(),
+  }
+}
+
+function administrativeScheduleDto(row: typeof administrativeSchedules.$inferSelect): AdministrativeScheduleDto {
+  return {
+    id: row.id,
+    tanggal: row.tanggal,
+    jam: row.jam,
+    judul: row.judul,
+    lokasi: row.lokasi,
     dibuatPada: row.dibuatPada.toISOString(),
     diubahPada: row.diubahPada.toISOString(),
   }
@@ -206,6 +235,88 @@ export async function updateSchedule(
 
 export async function deleteSchedule(id: string): Promise<void> {
   await db.delete(schedules).where(eq(schedules.id, id))
+}
+
+// Jadwal administratif (kalender kegiatan per tanggal)
+export async function listAdministrativeSchedules(params: {
+  tanggal?: string
+  dari?: string
+  sampai?: string
+}): Promise<AdministrativeScheduleDto[]> {
+  const t = (params.tanggal ?? '').trim()
+  if (t) {
+    const rows = await db
+      .select()
+      .from(administrativeSchedules)
+      .where(eq(administrativeSchedules.tanggal, t))
+      .orderBy(asc(administrativeSchedules.jam))
+    return rows.map(administrativeScheduleDto)
+  }
+  const dari = (params.dari ?? '').trim()
+  const sampai = (params.sampai ?? '').trim()
+  if (dari && sampai) {
+    const rows = await db
+      .select()
+      .from(administrativeSchedules)
+      .where(and(gte(administrativeSchedules.tanggal, dari), lte(administrativeSchedules.tanggal, sampai)))
+      .orderBy(asc(administrativeSchedules.tanggal), asc(administrativeSchedules.jam))
+    return rows.map(administrativeScheduleDto)
+  }
+  return []
+}
+
+export async function createAdministrativeSchedule(input: {
+  tanggal: string
+  jam: string
+  judul: string
+  lokasi: string
+}): Promise<AdministrativeScheduleDto> {
+  const judul = input.judul.trim()
+  const lokasi = input.lokasi.trim()
+  if (!judul) throw new AppError({ message: 'Judul kegiatan wajib diisi.' })
+  if (!lokasi) throw new AppError({ message: 'Lokasi wajib diisi.' })
+  const now = new Date()
+  const [row] = await db
+    .insert(administrativeSchedules)
+    .values({
+      id: randomUUID(),
+      tanggal: input.tanggal,
+      jam: input.jam,
+      judul,
+      lokasi,
+      dibuatPada: now,
+      diubahPada: now,
+    })
+    .returning()
+  return administrativeScheduleDto(row)
+}
+
+export async function updateAdministrativeSchedule(
+  id: string,
+  patch: Partial<{ tanggal: string; jam: string; judul: string; lokasi: string }>,
+): Promise<AdministrativeScheduleDto> {
+  const cur = await db.select().from(administrativeSchedules).where(eq(administrativeSchedules.id, id)).limit(1)
+  if (!cur.length) throw new AppError({ status: 404, message: 'Data tidak ditemukan.' })
+  const judul = (patch.judul ?? cur[0].judul).trim()
+  const lokasi = (patch.lokasi ?? cur[0].lokasi).trim()
+  if (!judul) throw new AppError({ message: 'Judul kegiatan wajib diisi.' })
+  if (!lokasi) throw new AppError({ message: 'Lokasi wajib diisi.' })
+  const [row] = await db
+    .update(administrativeSchedules)
+    .set({
+      tanggal: patch.tanggal ?? cur[0].tanggal,
+      jam: patch.jam ?? cur[0].jam,
+      judul,
+      lokasi,
+      diubahPada: new Date(),
+    })
+    .where(eq(administrativeSchedules.id, id))
+    .returning()
+  return administrativeScheduleDto(row)
+}
+
+export async function deleteAdministrativeSchedule(id: string): Promise<void> {
+  await db.delete(administrativeSchedules).where(eq(administrativeSchedules.id, id))
 }
 
 // Grade categories

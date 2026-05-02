@@ -3,13 +3,16 @@ import { z } from 'zod'
 import { ok } from '../http/respond'
 import { requireAuth, requireRole } from '../middlewares/auth'
 import {
+  CreateAdministrativeScheduleBodySchema,
   CreateGradeCategoryBodySchema,
   CreateScheduleBodySchema,
   CreateTeachingSlotBodySchema,
   GetGradebookQuerySchema,
+  ListAdministrativeSchedulesQuerySchema,
   ListGradeCategoriesQuerySchema,
   ListSchedulesQuerySchema,
   ListTeachingSlotsQuerySchema,
+  PatchAdministrativeScheduleBodySchema,
   PatchGradeCategoryBodySchema,
   PatchScheduleBodySchema,
   PatchTeachingSlotBodySchema,
@@ -30,7 +33,7 @@ akademikRouter.get('/api/v1/teaching-slots', requireAuth, async (req, res, next)
   }
 })
 
-akademikRouter.post('/api/v1/teaching-slots', requireAuth, requireRole(['ADMIN', 'TU', 'GURU']), async (req, res, next) => {
+akademikRouter.post('/api/v1/teaching-slots', requireAuth, requireRole(['ADMIN', 'KEPSEK', 'GURU']), async (req, res, next) => {
   try {
     const body = CreateTeachingSlotBodySchema.parse(req.body)
     res.json(ok(await akademik.createTeachingSlot(body)))
@@ -39,7 +42,7 @@ akademikRouter.post('/api/v1/teaching-slots', requireAuth, requireRole(['ADMIN',
   }
 })
 
-akademikRouter.patch('/api/v1/teaching-slots/:id', requireAuth, requireRole(['ADMIN', 'TU', 'GURU']), async (req, res, next) => {
+akademikRouter.patch('/api/v1/teaching-slots/:id', requireAuth, requireRole(['ADMIN', 'KEPSEK', 'GURU']), async (req, res, next) => {
   try {
     const id = z.string().min(1).parse(req.params.id)
     const body = PatchTeachingSlotBodySchema.parse(req.body)
@@ -49,7 +52,7 @@ akademikRouter.patch('/api/v1/teaching-slots/:id', requireAuth, requireRole(['AD
   }
 })
 
-akademikRouter.delete('/api/v1/teaching-slots/:id', requireAuth, requireRole(['ADMIN', 'TU', 'GURU']), async (req, res, next) => {
+akademikRouter.delete('/api/v1/teaching-slots/:id', requireAuth, requireRole(['ADMIN', 'KEPSEK', 'GURU']), async (req, res, next) => {
   try {
     const id = z.string().min(1).parse(req.params.id)
     await akademik.deleteTeachingSlot(id)
@@ -69,7 +72,7 @@ akademikRouter.get('/api/v1/schedules', requireAuth, async (req, res, next) => {
   }
 })
 
-akademikRouter.post('/api/v1/schedules', requireAuth, requireRole(['ADMIN', 'TU', 'GURU']), async (req, res, next) => {
+akademikRouter.post('/api/v1/schedules', requireAuth, requireRole(['ADMIN', 'KEPSEK', 'GURU']), async (req, res, next) => {
   try {
     const body = CreateScheduleBodySchema.parse(req.body)
     res.json(ok(await akademik.createSchedule(body as any)))
@@ -78,7 +81,7 @@ akademikRouter.post('/api/v1/schedules', requireAuth, requireRole(['ADMIN', 'TU'
   }
 })
 
-akademikRouter.patch('/api/v1/schedules/:id', requireAuth, requireRole(['ADMIN', 'TU', 'GURU']), async (req, res, next) => {
+akademikRouter.patch('/api/v1/schedules/:id', requireAuth, requireRole(['ADMIN', 'KEPSEK', 'GURU']), async (req, res, next) => {
   try {
     const id = z.string().min(1).parse(req.params.id)
     const body = PatchScheduleBodySchema.parse(req.body)
@@ -88,10 +91,57 @@ akademikRouter.patch('/api/v1/schedules/:id', requireAuth, requireRole(['ADMIN',
   }
 })
 
-akademikRouter.delete('/api/v1/schedules/:id', requireAuth, requireRole(['ADMIN', 'TU', 'GURU']), async (req, res, next) => {
+akademikRouter.delete('/api/v1/schedules/:id', requireAuth, requireRole(['ADMIN', 'KEPSEK', 'GURU']), async (req, res, next) => {
   try {
     const id = z.string().min(1).parse(req.params.id)
     await akademik.deleteSchedule(id)
+    res.json(ok(null))
+  } catch (e) {
+    next(e)
+  }
+})
+
+// Jadwal administratif
+akademikRouter.get('/api/v1/administrative-schedules', requireAuth, async (req, res, next) => {
+  try {
+    const q = ListAdministrativeSchedulesQuerySchema.parse(req.query)
+    res.json(
+      ok(
+        await akademik.listAdministrativeSchedules({
+          tanggal: q.tanggal.trim() || undefined,
+          dari: q.dari.trim() || undefined,
+          sampai: q.sampai.trim() || undefined,
+        }),
+      ),
+    )
+  } catch (e) {
+    next(e)
+  }
+})
+
+akademikRouter.post('/api/v1/administrative-schedules', requireAuth, requireRole(['ADMIN', 'KEPSEK', 'GURU']), async (req, res, next) => {
+  try {
+    const body = CreateAdministrativeScheduleBodySchema.parse(req.body)
+    res.json(ok(await akademik.createAdministrativeSchedule(body)))
+  } catch (e) {
+    next(e)
+  }
+})
+
+akademikRouter.patch('/api/v1/administrative-schedules/:id', requireAuth, requireRole(['ADMIN', 'KEPSEK', 'GURU']), async (req, res, next) => {
+  try {
+    const id = z.string().min(1).parse(req.params.id)
+    const body = PatchAdministrativeScheduleBodySchema.parse(req.body)
+    res.json(ok(await akademik.updateAdministrativeSchedule(id, body)))
+  } catch (e) {
+    next(e)
+  }
+})
+
+akademikRouter.delete('/api/v1/administrative-schedules/:id', requireAuth, requireRole(['ADMIN', 'KEPSEK', 'GURU']), async (req, res, next) => {
+  try {
+    const id = z.string().min(1).parse(req.params.id)
+    await akademik.deleteAdministrativeSchedule(id)
     res.json(ok(null))
   } catch (e) {
     next(e)
@@ -108,7 +158,7 @@ akademikRouter.get('/api/v1/grade-categories', requireAuth, async (req, res, nex
   }
 })
 
-akademikRouter.post('/api/v1/grade-categories', requireAuth, requireRole(['ADMIN', 'TU', 'GURU']), async (req, res, next) => {
+akademikRouter.post('/api/v1/grade-categories', requireAuth, requireRole(['ADMIN', 'KEPSEK', 'GURU']), async (req, res, next) => {
   try {
     const body = CreateGradeCategoryBodySchema.parse(req.body)
     res.json(ok(await akademik.createGradeCategory(body)))
@@ -117,7 +167,7 @@ akademikRouter.post('/api/v1/grade-categories', requireAuth, requireRole(['ADMIN
   }
 })
 
-akademikRouter.patch('/api/v1/grade-categories/:id', requireAuth, requireRole(['ADMIN', 'TU', 'GURU']), async (req, res, next) => {
+akademikRouter.patch('/api/v1/grade-categories/:id', requireAuth, requireRole(['ADMIN', 'KEPSEK', 'GURU']), async (req, res, next) => {
   try {
     const id = z.string().min(1).parse(req.params.id)
     const body = PatchGradeCategoryBodySchema.parse(req.body)
@@ -127,7 +177,7 @@ akademikRouter.patch('/api/v1/grade-categories/:id', requireAuth, requireRole(['
   }
 })
 
-akademikRouter.delete('/api/v1/grade-categories/:id', requireAuth, requireRole(['ADMIN', 'TU', 'GURU']), async (req, res, next) => {
+akademikRouter.delete('/api/v1/grade-categories/:id', requireAuth, requireRole(['ADMIN', 'KEPSEK', 'GURU']), async (req, res, next) => {
   try {
     const id = z.string().min(1).parse(req.params.id)
     await akademik.deleteGradeCategory(id)
@@ -147,7 +197,7 @@ akademikRouter.get('/api/v1/gradebook', requireAuth, async (req, res, next) => {
   }
 })
 
-akademikRouter.post('/api/v1/gradebook/score', requireAuth, requireRole(['ADMIN', 'TU', 'GURU']), async (req, res, next) => {
+akademikRouter.post('/api/v1/gradebook/score', requireAuth, requireRole(['ADMIN', 'KEPSEK', 'GURU']), async (req, res, next) => {
   try {
     const body = UpsertGradeScoreBodySchema.parse(req.body)
     res.json(ok(await akademik.upsertGradeScore(body)))
@@ -156,7 +206,7 @@ akademikRouter.post('/api/v1/gradebook/score', requireAuth, requireRole(['ADMIN'
   }
 })
 
-akademikRouter.post('/api/v1/gradebook/status', requireAuth, requireRole(['ADMIN', 'TU', 'GURU']), async (req, res, next) => {
+akademikRouter.post('/api/v1/gradebook/status', requireAuth, requireRole(['ADMIN', 'KEPSEK', 'GURU']), async (req, res, next) => {
   try {
     const body = SetGradebookStatusBodySchema.parse(req.body)
     await akademik.setGradebookStatus(body)

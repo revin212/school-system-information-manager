@@ -3,6 +3,7 @@ import { eq } from 'drizzle-orm'
 import { db } from './client'
 import {
   academicYears,
+  administrativeSchedules,
   classes,
   employees,
   gradeCategories,
@@ -222,6 +223,22 @@ async function seedAkademik() {
   ]
   for (const s of schedulesFixture) {
     await insertIfMissing(schedules, s, (r) => ({
+      ...r,
+      dibuatPada: new Date(r.dibuatPada),
+      diubahPada: new Date(r.diubahPada),
+    }))
+  }
+
+  const pad = (n: number) => String(n).padStart(2, '0')
+  const d0 = new Date()
+  const todayStr = `${d0.getFullYear()}-${pad(d0.getMonth() + 1)}-${pad(d0.getDate())}`
+  const adminSchedFixture = [
+    { id: 'adm_1', tanggal: todayStr, jam: '08:00', judul: 'Rapat Evaluasi Kurikulum', lokasi: 'Ruang Guru', dibuatPada: nowIso, diubahPada: nowIso },
+    { id: 'adm_2', tanggal: todayStr, jam: '10:30', judul: 'Pertemuan Orang Tua Siswa (X MIPA 1)', lokasi: 'Aula Utama', dibuatPada: nowIso, diubahPada: nowIso },
+    { id: 'adm_3', tanggal: todayStr, jam: '13:00', judul: 'Pengecekan Fasilitas Laboratorium', lokasi: 'Lab Biologi', dibuatPada: nowIso, diubahPada: nowIso },
+  ]
+  for (const a of adminSchedFixture) {
+    await insertIfMissing(administrativeSchedules, a, (r) => ({
       ...r,
       dibuatPada: new Date(r.dibuatPada),
       diubahPada: new Date(r.diubahPada),

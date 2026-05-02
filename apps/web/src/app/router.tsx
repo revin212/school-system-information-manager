@@ -10,6 +10,7 @@ import { AcademicYearsPage } from '../features/master/academicYears/AcademicYear
 import { EmployeesPage } from '../features/sdm/employees/EmployeesPage'
 import { StudentsPage } from '../features/sdm/students/StudentsPage'
 import { TimeSlotsPage } from '../features/akademik/timeSlots/TimeSlotsPage'
+import { AdministrativeSchedulesPage } from '../features/akademik/adminSchedules/AdministrativeSchedulesPage'
 import { SchedulesPage } from '../features/akademik/schedules/SchedulesPage'
 import { GradeCategoriesPage } from '../features/akademik/gradeCategories/GradeCategoriesPage'
 import { GradesPage } from '../features/akademik/grades/GradesPage'
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
       { path: '/sdm/guru-karyawan', element: <EmployeesPage /> },
       { path: '/sdm/siswa', element: <StudentsPage /> },
       { path: '/akademik/waktu-mengajar', element: <TimeSlotsPage /> },
+      { path: '/akademik/jadwal-administratif', element: <AdministrativeSchedulesPage /> },
       { path: '/akademik/jadwal-pelajaran', element: <SchedulesPage /> },
       { path: '/akademik/kategori-nilai', element: <GradeCategoriesPage /> },
       { path: '/akademik/penilaian', element: <GradesPage /> },

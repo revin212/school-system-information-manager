@@ -40,6 +40,7 @@ export const NAV: Array<NavItem | NavGroup> = [
     icon: 'school',
     items: [
       { key: 'time', label: 'Waktu Mengajar', to: '/akademik/waktu-mengajar' },
+      { key: 'adminSched', label: 'Jadwal Administratif', to: '/akademik/jadwal-administratif' },
       { key: 'schedule', label: 'Jadwal Pelajaran', to: '/akademik/jadwal-pelajaran' },
       { key: 'gradeCats', label: 'Kategori Nilai', to: '/akademik/kategori-nilai' },
       { key: 'grades', label: 'Penilaian', to: '/akademik/penilaian' },

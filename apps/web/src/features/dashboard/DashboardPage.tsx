@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom'
 import { Card } from '../../components/ui/Card'
+import { useTodayAdministrativeSchedules } from '../akademik/adminSchedules/administrativeSchedulesQueries'
 
 function KpiCard({
   label,
@@ -38,6 +40,8 @@ function KpiCard({
 }
 
 export function DashboardPage() {
+  const adminToday = useTodayAdministrativeSchedules()
+
   return (
     <div className="space-y-8">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -167,35 +171,45 @@ export function DashboardPage() {
           <div className="absolute top-0 right-0 p-4 opacity-5">
             <span className="material-symbols-outlined text-6xl">event</span>
           </div>
-          <h3 className="font-headline text-[1.125rem] font-semibold text-on-surface mb-6 tracking-editorial relative z-10">
-            Jadwal Hari Ini
-          </h3>
+          <div className="flex items-start justify-between gap-2 relative z-10 mb-6">
+            <h3 className="font-headline text-[1.125rem] font-semibold text-on-surface tracking-editorial">Jadwal Hari Ini</h3>
+            <Link
+              to="/akademik/jadwal-administratif"
+              className="font-label text-xs text-primary font-medium hover:underline shrink-0"
+            >
+              Kelola
+            </Link>
+          </div>
           <div className="space-y-4 relative z-10 flex-1">
-            {[
-              { jam: '08:00', judul: 'Rapat Evaluasi Kurikulum', lokasi: 'Ruang Guru' },
-              { jam: '10:30', judul: 'Pertemuan Orang Tua Siswa (X MIPA 1)', lokasi: 'Aula Utama' },
-              { jam: '13:00', judul: 'Pengecekan Fasilitas Laboratorium', lokasi: 'Lab Biologi' },
-            ].map((ev, idx, arr) => (
-              <div key={ev.judul} className="flex gap-4 group">
-                <div className="flex flex-col items-center">
-                  <span className={cx('font-label text-xs font-bold', idx === 0 ? 'text-primary' : 'text-on-surface-variant')}>
-                    {ev.jam}
-                  </span>
-                  {idx !== arr.length - 1 ? (
-                    <div className="w-0.5 h-full bg-outline-variant/30 my-1" />
-                  ) : null}
-                </div>
-                <div className="pb-4 flex-1">
-                  <div className="bg-surface p-3 rounded-lg border border-outline-variant/10">
-                    <p className="font-label text-sm font-medium text-on-surface">{ev.judul}</p>
-                    <p className="font-body text-xs text-on-surface-variant mt-1 flex items-center">
-                      <span className="material-symbols-outlined text-[14px] mr-1">location_on</span>
-                      {ev.lokasi}
-                    </p>
+            {adminToday.isLoading ? (
+              <p className="font-body text-sm text-on-surface-variant">Memuat jadwal…</p>
+            ) : adminToday.isError ? (
+              <p className="font-body text-sm text-on-surface-variant">Gagal memuat jadwal.</p>
+            ) : (adminToday.data?.length ?? 0) === 0 ? (
+              <p className="font-body text-sm text-on-surface-variant">Tidak ada jadwal hari ini.</p>
+            ) : (
+              adminToday.data!.map((ev, idx, arr) => (
+                <div key={ev.id} className="flex gap-4 group">
+                  <div className="flex flex-col items-center">
+                    <span
+                      className={cx('font-label text-xs font-bold', idx === 0 ? 'text-primary' : 'text-on-surface-variant')}
+                    >
+                      {ev.jam}
+                    </span>
+                    {idx !== arr.length - 1 ? <div className="w-0.5 h-full bg-outline-variant/30 my-1" /> : null}
+                  </div>
+                  <div className="pb-4 flex-1">
+                    <div className="bg-surface p-3 rounded-lg border border-outline-variant/10">
+                      <p className="font-label text-sm font-medium text-on-surface">{ev.judul}</p>
+                      <p className="font-body text-xs text-on-surface-variant mt-1 flex items-center">
+                        <span className="material-symbols-outlined text-[14px] mr-1">location_on</span>
+                        {ev.lokasi}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </Card>
       </div>
