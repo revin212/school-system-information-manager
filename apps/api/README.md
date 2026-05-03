@@ -7,7 +7,7 @@ Base URL: `http://localhost:8000`
 Dari root repo:
 
 ```bash
-docker compose up -d
+docker compose --profile local-db up -d
 ```
 
 ## Menjalankan API (dev)

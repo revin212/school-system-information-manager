@@ -16,7 +16,9 @@ Monorepo untuk aplikasi manajemen sekolah: backend REST API (Express) + frontend
 
 ## Menjalankan dengan Docker (full stack)
 
-Seluruh stack (**PostgreSQL + API + frontend statik + Caddy**) dijalankan dari root repo.
+Seluruh stack (**PostgreSQL + API + frontend statik + Caddy**) dijalankan dari root repo. Layanan Postgres di compose memakai profil **`local-db`**; stack penuh membutuhkan **`--profile full`** dan **`--profile local-db`** bersamaan.
+
+**Deploy ke VPS** dengan satu Postgres bersama (bukan container dari repo ini): ikuti [`deploy/README.md`](deploy/README.md) (`docker-compose.prod.yml` + network eksternal).
 
 1. Siapkan env:
 
@@ -29,20 +31,22 @@ Edit `.env.docker`:
 - **`SITE_ADDRESS`**: hostname produksi (mis. `sim.example.com`, HTTPS otomatis via Caddy) atau **`http://localhost`** untuk uji lokal lewat port 80.
 - **`BETTER_AUTH_URL`**, **`CORS_ORIGIN`**, **`VITE_API_BASE_URL`**: samakan dengan URL yang dipakai browser (mis. `https://domain` atau `http://localhost`).
 - **`BETTER_AUTH_SECRET`**: minimal 32 karakter, acak.
-- **`POSTGRES_PASSWORD`** / **`DATABASE_URL`**: sesuaikan jika mengganti user DB.
+- **`POSTGRES_PASSWORD`** / **`DATABASE_URL`**: sesuaikan jika mengganti user DB (`DATABASE_URL` memakai hostname service `postgres` di network compose lokal).
 
 2. Build dan jalankan:
 
 ```bash
-docker compose --profile full --env-file .env.docker up -d --build
+docker compose --profile full --profile local-db --env-file .env.docker up -d --build
 ```
+
+Jika migrasi `api` gagal karena `postgres` belum siap saat start pertama, tunggu DB sehat lalu `docker compose --profile full --profile local-db --env-file .env.docker restart api`.
 
 3. Buka app di browser sesuai `SITE_ADDRESS` (mis. `https://sim.example.com` atau `http://localhost`).
 
 4. (Opsional, sekali) Seed user demo:
 
 ```bash
-docker compose --profile full --env-file .env.docker exec api npm run db:seed:dist
+docker compose --profile full --profile local-db --env-file .env.docker exec api npm run db:seed:dist
 ```
 
 (Pakai `db:seed:dist` di container: image hanya berisi hasil `build`, bukan sumber `tsx` penuh. Lokal dev tetap `npm run db:seed` di `apps/api`.)
@@ -54,14 +58,14 @@ Setelah seed, login bisa memakai identifier `admin` atau `admin@sim.local`, pass
 **Migrasi:** Saat container `api` menyala, image menjalankan `npm run db:migrate` lalu server (`apps/api/Dockerfile`). Jadi setelah rebuild/restart, skema database mengikuti file migrasi tanpa perlu perintah tambahan—kecuali Anda ingin menjalankan migrasi manual untuk debug:
 
 ```bash
-docker compose --profile full --env-file .env.docker exec api npm run db:migrate
+docker compose --profile full --profile local-db --env-file .env.docker exec api npm run db:migrate
 ```
 
 **Alur umum (build ulang + pastikan DB terbaru + data demo):**
 
 ```bash
-docker compose --profile full --env-file .env.docker up -d --build
-docker compose --profile full --env-file .env.docker exec api npm run db:seed:dist
+docker compose --profile full --profile local-db --env-file .env.docker up -d --build
+docker compose --profile full --profile local-db --env-file .env.docker exec api npm run db:seed:dist
 ```
 
 Tunggu sampai layanan `postgres` sehat dan `api` sudah jalan sebelum `exec`. Seed boleh diulang; banyak data memakai insert idempotensi (`insertIfMissing`), tetapi duplikat tetap bisa terjadi pada bagian seed yang tidak mengecek duplikat—gunakan DB bersih jika ingin state yang rapat.
@@ -69,14 +73,14 @@ Tunggu sampai layanan `postgres` sehat dan `api` sudah jalan sebelum `exec`. See
 **Database dari nol (hapus volume PostgreSQL lalu naikkan lagi):**
 
 ```bash
-docker compose --profile full --env-file .env.docker down -v
-docker compose --profile full --env-file .env.docker up -d --build
-docker compose --profile full --env-file .env.docker exec api npm run db:seed:dist
+docker compose --profile full --profile local-db --env-file .env.docker down -v
+docker compose --profile full --profile local-db --env-file .env.docker up -d --build
+docker compose --profile full --profile local-db --env-file .env.docker exec api npm run db:seed:dist
 ```
 
-Perintah `down -v` menghapus volume yang dideklarasikan di Compose (termasuk data Postgres). Setelah itu migrasi tetap dijalankan otomatis saat `api` start; seed memuat ulang user demo dan data contoh.
+Perintah `down -v` menghapus volume yang dideklarasikan di Compose (termasuk data Postgres **lokal** dari compose ini). Setelah itu migrasi tetap dijalankan otomatis saat `api` start; seed memuat ulang user demo dan data contoh.
 
-**Catatan:** `docker compose up -d` **tanpa** `--profile full` hanya menjalankan PostgreSQL (untuk workflow dev npm di bawah). Profile `full` menambahkan `api`, `web`, dan `caddy`.
+**Catatan:** `docker compose --profile local-db up -d` **tanpa** `--profile full` hanya menjalankan PostgreSQL (untuk workflow dev npm di bawah). Profile `full` menambahkan `api`, `web`, dan `caddy`; untuk stack lengkap dengan Postgres dari repo ini, pakai **`--profile full`** dan **`--profile local-db`**.
 
 ## Menjalankan lokal (dev dengan npm)
 
@@ -85,7 +89,7 @@ Perintah `down -v` menghapus volume yang dideklarasikan di Compose (termasuk dat
 Dari root repo:
 
 ```bash
-docker compose up -d
+docker compose --profile local-db up -d
 ```
 
 ### 2) Jalankan backend (apps/api)
@@ -144,4 +148,4 @@ VITE_USE_MOCK=false
 
 ## Deploy ke VPS (Docker)
 
-Lihat panduan lengkap di [`deploy/README.md`](deploy/README.md) (DNS, HTTPS, dan checklist produksi).
+Lihat panduan lengkap di [`deploy/README.md`](deploy/README.md): Postgres **bersama** satu container untuk banyak proyek, network Docker, `DATABASE_URL`, serta perintah compose dengan [`docker-compose.prod.yml`](docker-compose.prod.yml).
