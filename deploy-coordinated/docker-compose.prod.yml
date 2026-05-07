@@ -1,0 +1,14 @@
+# Production / VPS: stack aplikasi saja; PostgreSQL berjalan terpisah di network Docker bersama.
+# Pakai bersama docker-compose.yml:
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml --profile full --env-file deploy/.env.prod up -d --build
+#
+# Buat network sekali (sesuaikan SHARED_DOCKER_NETWORK di env):
+#   docker network create postgres-portfolio-net
+#
+# Layanan postgres di compose utama punya profile "local-db" — tidak ikut tanpa profile itu.
+# Service api tidak memakai depends_on ke postgres; pastikan Postgres bersama sudah jalan sebelum api.
+
+networks:
+  default:
+    name: ${SHARED_DOCKER_NETWORK:-postgres-portfolio-net}
+    external: true

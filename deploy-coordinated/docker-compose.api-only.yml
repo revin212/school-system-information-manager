@@ -1,0 +1,27 @@
+services:
+  api:
+    # NOTE: Compose ini hanya artefak deploy. Pastikan repo aplikasi asli memiliki Dockerfile & port internal yang benar.
+    #
+    # Konvensi:
+    # - API dipublish ke loopback host (127.0.0.1) agar hanya bisa diakses via Nginx host
+    # - Postgres ada di container terpisah pada network eksternal (postgres-portfolio-net)
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: simsekolah_api
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?set DATABASE_URL in deploy/.env.prod}
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?set BETTER_AUTH_SECRET in deploy/.env.prod}
+      BETTER_AUTH_URL: ${BETTER_AUTH_URL:?set BETTER_AUTH_URL in deploy/.env.prod}
+      CORS_ORIGIN: ${CORS_ORIGIN:?set CORS_ORIGIN in deploy/.env.prod}
+    ports:
+      - "127.0.0.1:${API_PORT:-4005}:${API_INTERNAL_PORT:-8000}"
+    restart: unless-stopped
+    networks:
+      - postgres-portfolio-net
+
+networks:
+  postgres-portfolio-net:
+    external: true
+    name: ${SHARED_DOCKER_NETWORK:-postgres-portfolio-net}
+
