@@ -33,3 +33,10 @@
     @apply border border-outline-variant/15;
   }
 }
+
+/* Mobile/touch: do not rely on hover-only action controls. */
+@media (hover: none), (pointer: coarse) {
+  [class*='group-hover:opacity-100'] {
+    opacity: 1 !important;
+  }
+}

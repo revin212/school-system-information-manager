@@ -3,6 +3,7 @@ import { Button } from '../../../components/ui/Button'
 import { Card } from '../../../components/ui/Card'
 import { Drawer } from '../../../components/ui/Drawer'
 import { Input } from '../../../components/ui/Input'
+import { confirmDelete } from '../../../lib/confirmDialog'
 import { localDateString, monthRangeFromYearMonth } from '../../../lib/dateLocal'
 import type { AdministrativeSchedule } from './administrativeSchedulesQueries'
 import {
@@ -125,7 +126,7 @@ export function AdministrativeSchedulesPage() {
   }
 
   async function onDelete(row: AdministrativeSchedule) {
-    const ok = window.confirm(`Hapus jadwal "${row.judul}"?`)
+    const ok = await confirmDelete(`Jadwal "${row.judul}" akan dihapus permanen.`)
     if (!ok) return
     try {
       await deleteMut.mutateAsync(row.id)

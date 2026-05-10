@@ -3,6 +3,7 @@ import { Button } from '../../../components/ui/Button'
 import { Card } from '../../../components/ui/Card'
 import { Drawer } from '../../../components/ui/Drawer'
 import { Input } from '../../../components/ui/Input'
+import { confirmDelete } from '../../../lib/confirmDialog'
 import type { EmployeeType, Weekday } from '../../../lib/mockApi/types'
 import { useEmployeesList } from '../../sdm/employees/employeesQueries'
 import { useCreateTimeSlot, useDeleteTimeSlot, useTimeSlotsList, useUpdateTimeSlot } from './timeSlotsQueries'
@@ -164,7 +165,7 @@ export function TimeSlotsPage() {
   }
 
   async function onDelete(slot: TeachingSlot) {
-    const ok = window.confirm(`Hapus slot "${slot.hari} ${slot.mulai} - ${slot.selesai}"?`)
+    const ok = await confirmDelete(`Slot "${slot.hari} ${slot.mulai} - ${slot.selesai}" akan dihapus permanen.`)
     if (!ok) return
     try {
       await deleteMut.mutateAsync(slot.id)

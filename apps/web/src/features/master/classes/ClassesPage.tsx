@@ -3,6 +3,7 @@ import { Button } from '../../../components/ui/Button'
 import { Card } from '../../../components/ui/Card'
 import { Drawer } from '../../../components/ui/Drawer'
 import { Input } from '../../../components/ui/Input'
+import { confirmDelete } from '../../../lib/confirmDialog'
 import type { ClassLevel, ClassStatus, Major, MajorStatus } from '../../../lib/mockApi/types'
 import { useMajorsList } from '../majors/majorsQueries'
 import {
@@ -204,7 +205,7 @@ export function ClassesPage() {
   }
 
   async function onDelete(item: SchoolClass) {
-    const ok = window.confirm(`Hapus kelas "${item.nama}"?`)
+    const ok = await confirmDelete(`Kelas "${item.nama}" akan dihapus permanen.`)
     if (!ok) return
     try {
       await deleteMut.mutateAsync(item.id)

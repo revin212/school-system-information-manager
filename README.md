@@ -14,9 +14,9 @@ Monorepo untuk aplikasi manajemen sekolah: backend REST API (Express) + frontend
 - `apps/api`: REST API (`http://localhost:8000` saat dev npm)
 - `apps/web`: Web app (Vite dev server, default `http://localhost:5173`)
 
-## Menjalankan dengan Docker (full stack)
+## Menjalankan dengan Docker (full local stack)
 
-Seluruh stack (**PostgreSQL + API + frontend statik + Caddy**) dijalankan dari root repo. Layanan Postgres di compose memakai profil **`local-db`**; stack penuh membutuhkan **`--profile full`** dan **`--profile local-db`** bersamaan.
+Seluruh stack lokal (**PostgreSQL + API + frontend statik**) dijalankan dari root repo tanpa reverse proxy tambahan. Layanan Postgres di compose memakai profil **`local-db`**; stack penuh membutuhkan **`--profile full`** dan **`--profile local-db`** bersamaan.
 
 **Deploy ke VPS** dengan satu Postgres bersama (bukan container dari repo ini): ikuti [`deploy/README.md`](deploy/README.md) (`docker-compose.prod.yml` + network eksternal).
 
@@ -28,8 +28,8 @@ cp .env.docker.example .env.docker
 
 Edit `.env.docker`:
 
-- **`SITE_ADDRESS`**: hostname produksi (mis. `sim.example.com`, HTTPS otomatis via Caddy) atau **`http://localhost`** untuk uji lokal lewat port 80.
-- **`BETTER_AUTH_URL`**, **`CORS_ORIGIN`**, **`VITE_API_BASE_URL`**: samakan dengan URL yang dipakai browser (mis. `https://domain` atau `http://localhost`).
+- **`BETTER_AUTH_URL`** dan **`CORS_ORIGIN`**: set ke origin frontend lokal, mis. **`http://localhost`**.
+- **`VITE_API_BASE_URL`**: set ke URL API lokal, mis. **`http://localhost:8000`**.
 - **`BETTER_AUTH_SECRET`**: minimal 32 karakter, acak.
 - **`POSTGRES_PASSWORD`** / **`DATABASE_URL`**: sesuaikan jika mengganti user DB (`DATABASE_URL` memakai hostname service `postgres` di network compose lokal).
 
@@ -41,7 +41,10 @@ docker compose --profile full --profile local-db --env-file .env.docker up -d --
 
 Jika migrasi `api` gagal karena `postgres` belum siap saat start pertama, tunggu DB sehat lalu `docker compose --profile full --profile local-db --env-file .env.docker restart api`.
 
-3. Buka app di browser sesuai `SITE_ADDRESS` (mis. `https://sim.example.com` atau `http://localhost`).
+3. Buka app di browser:
+
+- Frontend: `http://localhost`
+- API health: `http://localhost:8000/health`
 
 4. (Opsional, sekali) Seed user demo:
 
@@ -80,7 +83,7 @@ docker compose --profile full --profile local-db --env-file .env.docker exec api
 
 Perintah `down -v` menghapus volume yang dideklarasikan di Compose (termasuk data Postgres **lokal** dari compose ini). Setelah itu migrasi tetap dijalankan otomatis saat `api` start; seed memuat ulang user demo dan data contoh.
 
-**Catatan:** `docker compose --profile local-db up -d` **tanpa** `--profile full` hanya menjalankan PostgreSQL (untuk workflow dev npm di bawah). Profile `full` menambahkan `api`, `web`, dan `caddy`; untuk stack lengkap dengan Postgres dari repo ini, pakai **`--profile full`** dan **`--profile local-db`**.
+**Catatan:** `docker compose --profile local-db up -d` **tanpa** `--profile full` hanya menjalankan PostgreSQL (untuk workflow dev npm di bawah). Profile `full` menambahkan `api` dan `web`; untuk stack lengkap dengan Postgres dari repo ini, pakai **`--profile full`** dan **`--profile local-db`**.
 
 ## Menjalankan lokal (dev dengan npm)
 

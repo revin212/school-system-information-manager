@@ -3,6 +3,7 @@ import { Button } from '../../../components/ui/Button'
 import { Card } from '../../../components/ui/Card'
 import { Drawer } from '../../../components/ui/Drawer'
 import { Input } from '../../../components/ui/Input'
+import { confirmDelete } from '../../../lib/confirmDialog'
 import type { SubjectStatus } from '../../../lib/mockApi/types'
 import {
   useCreateSubject,
@@ -154,7 +155,7 @@ export function SubjectsPage() {
   }
 
   async function onDelete(subject: Subject) {
-    const ok = window.confirm(`Hapus mata pelajaran "${subject.nama}"?`)
+    const ok = await confirmDelete(`Mata pelajaran "${subject.nama}" akan dihapus permanen.`)
     if (!ok) return
     try {
       await deleteMut.mutateAsync(subject.id)

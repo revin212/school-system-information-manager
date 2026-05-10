@@ -3,6 +3,7 @@ import { Button } from '../../../components/ui/Button'
 import { Card } from '../../../components/ui/Card'
 import { Drawer } from '../../../components/ui/Drawer'
 import { Input } from '../../../components/ui/Input'
+import { confirmDelete } from '../../../lib/confirmDialog'
 import type { Weekday } from '../../../lib/mockApi/types'
 import { useAcademicYearsList } from '../../master/academicYears/academicYearsQueries'
 import { useClassesList } from '../../master/classes/classesQueries'
@@ -267,7 +268,7 @@ export function SchedulesPage() {
   }
 
   async function onDelete(item: ScheduleItem) {
-    const ok = window.confirm(`Hapus jadwal "${subjectName.get(item.mapelId) ?? 'Mapel'}"?`)
+    const ok = await confirmDelete(`Jadwal "${subjectName.get(item.mapelId) ?? 'Mapel'}" akan dihapus permanen.`)
     if (!ok) return
     try {
       await deleteMut.mutateAsync(item.id)

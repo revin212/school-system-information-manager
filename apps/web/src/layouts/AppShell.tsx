@@ -1,6 +1,5 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { AppBrandIcon } from '../components/brand/AppBrandIcon'
 import { Sidebar } from '../components/ui/Sidebar/Sidebar'
 import { Button } from '../components/ui/Button'
 import { canAccessPath, navigationForRole } from '../features/auth/access'
@@ -19,10 +18,15 @@ export function AppShell() {
   const user = getAuthUser()
   const nav = useNavigate()
   const { pathname } = useLocation()
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
 
   const navEntries = useMemo(() => navigationForRole(user?.peran ?? 'ADMIN'), [user?.peran])
 
   const crumb = breadcrumbLabel[pathname] ?? 'SIM Sekolah'
+
+  useEffect(() => {
+    setMobileSidebarOpen(false)
+  }, [pathname])
 
   if (user && !canAccessPath(user.peran, pathname)) {
     return <Navigate to="/dashboard" replace />
@@ -32,6 +36,8 @@ export function AppShell() {
     <div className="bg-surface text-on-surface antialiased flex h-screen overflow-hidden">
       <Sidebar
         entries={navEntries}
+        mobileOpen={mobileSidebarOpen}
+        onMobileClose={() => setMobileSidebarOpen(false)}
         footer={
           <div className="flex items-center gap-3 bg-surface-container-highest/50 p-3 rounded-xl">
             <div className="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold text-sm">
@@ -54,18 +60,22 @@ export function AppShell() {
 
       <div className="flex-1 lg:ml-72 flex flex-col h-screen overflow-hidden bg-surface-container-low relative">
         <header className="sticky top-0 z-40 w-full glass shadow-sm font-body tracking-tight">
-          <div className="flex items-center justify-between px-8 py-3 w-full">
+          <div className="flex items-center justify-between px-3 md:px-8 py-3 w-full">
             <div className="hidden md:flex items-center gap-2 text-sm font-medium">
               <span className="text-on-surface-variant">SIM Sekolah</span>
               <span className="material-symbols-outlined text-base text-outline">chevron_right</span>
               <span className="text-primary font-semibold">{crumb}</span>
             </div>
 
-            <div className="md:hidden flex items-center gap-2">
-              <div className="rounded-lg bg-primary-container/15 p-0.5 ring-1 ring-outline-variant/10">
-                <AppBrandIcon className="h-8 w-8" />
-              </div>
-              <span className="font-headline font-black tracking-tighter text-primary text-lg">SIM Sekolah</span>
+            <div className="md:hidden flex items-center min-w-0">
+              <button
+                type="button"
+                aria-label="Buka menu"
+                onClick={() => setMobileSidebarOpen(true)}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container-highest focus:outline-none focus:ring-2 focus:ring-primary/30"
+              >
+                <span className="material-symbols-outlined text-[22px]">menu</span>
+              </button>
             </div>
 
             <div className="flex items-center gap-2">

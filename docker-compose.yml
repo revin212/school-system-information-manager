@@ -31,8 +31,8 @@ services:
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
       BETTER_AUTH_URL: ${BETTER_AUTH_URL}
       CORS_ORIGIN: ${CORS_ORIGIN}
-    expose:
-      - "8000"
+    ports:
+      - "8000:8000"
 
   web:
     profiles: ["full"]
@@ -44,27 +44,8 @@ services:
     restart: unless-stopped
     depends_on:
       - api
-    expose:
-      - "80"
-
-  caddy:
-    profiles: ["full"]
-    image: caddy:2.9-alpine
-    restart: unless-stopped
-    depends_on:
-      - web
-      - api
     ports:
       - "80:80"
-      - "443:443"
-    volumes:
-      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
-      - caddy_data:/data
-      - caddy_config:/config
-    environment:
-      SITE_ADDRESS: ${SITE_ADDRESS}
 
 volumes:
   simsekolah_pgdata:
-  caddy_data:
-  caddy_config:

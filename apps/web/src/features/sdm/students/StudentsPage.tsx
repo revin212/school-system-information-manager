@@ -3,6 +3,7 @@ import { Button } from '../../../components/ui/Button'
 import { Card } from '../../../components/ui/Card'
 import { Drawer } from '../../../components/ui/Drawer'
 import { Input } from '../../../components/ui/Input'
+import { confirmDelete } from '../../../lib/confirmDialog'
 import { downloadExcel } from '../../../lib/export/excel'
 import type { ClassLevel, ClassStatus, MajorStatus, StudentStatus } from '../../../lib/mockApi/types'
 import { useClassesList } from '../../master/classes/classesQueries'
@@ -235,7 +236,7 @@ export function StudentsPage() {
   }
 
   async function onDelete(item: Student) {
-    const ok = window.confirm(`Hapus data siswa "${item.nama}"?`)
+    const ok = await confirmDelete(`Data siswa "${item.nama}" akan dihapus permanen.`)
     if (!ok) return
     try {
       await deleteMut.mutateAsync(item.id)
@@ -337,7 +338,8 @@ export function StudentsPage() {
       </Card>
 
       <Card className="rounded-2xl p-6">
-        <table className="w-full text-left border-collapse">
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[760px] text-left border-collapse">
           <thead>
             <tr className="text-[0.75rem] font-medium text-on-surface-variant font-label">
               <th className="pb-4 font-medium pl-2">NIS</th>
@@ -385,7 +387,8 @@ export function StudentsPage() {
               ))
             )}
           </tbody>
-        </table>
+          </table>
+        </div>
 
         <div className="flex justify-between items-center mt-6 pt-4 ghost-border border-x-0 border-b-0">
           <span className="text-[0.75rem] text-on-surface-variant font-label">

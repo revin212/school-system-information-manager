@@ -3,6 +3,7 @@ import { Button } from '../../../components/ui/Button'
 import { Card } from '../../../components/ui/Card'
 import { Drawer } from '../../../components/ui/Drawer'
 import { Input } from '../../../components/ui/Input'
+import { confirmDelete } from '../../../lib/confirmDialog'
 import { useAcademicYearsList } from '../../master/academicYears/academicYearsQueries'
 import { useClassesList } from '../../master/classes/classesQueries'
 import { useSubjectsList } from '../../master/subjects/subjectsQueries'
@@ -123,7 +124,7 @@ export function GradeCategoriesPage() {
   }
 
   async function onDelete(cat: GradeCategory) {
-    const ok = window.confirm(`Hapus kategori "${cat.nama}"?`)
+    const ok = await confirmDelete(`Kategori "${cat.nama}" akan dihapus permanen.`)
     if (!ok) return
     try {
       await deleteMut.mutateAsync(cat.id)

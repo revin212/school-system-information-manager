@@ -3,6 +3,7 @@ import { Button } from '../../../components/ui/Button'
 import { Card } from '../../../components/ui/Card'
 import { Drawer } from '../../../components/ui/Drawer'
 import { Input } from '../../../components/ui/Input'
+import { confirmDelete } from '../../../lib/confirmDialog'
 import type { MajorStatus } from '../../../lib/mockApi/types'
 import {
   useCreateMajor,
@@ -146,7 +147,7 @@ export function MajorsPage() {
   }
 
   async function onDelete(major: Major) {
-    const ok = window.confirm(`Hapus jurusan "${major.nama}"?`)
+    const ok = await confirmDelete(`Jurusan "${major.nama}" akan dihapus permanen.`)
     if (!ok) return
     try {
       await deleteMut.mutateAsync(major.id)

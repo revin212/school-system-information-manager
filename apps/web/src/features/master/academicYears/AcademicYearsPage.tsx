@@ -3,6 +3,7 @@ import { Button } from '../../../components/ui/Button'
 import { Card } from '../../../components/ui/Card'
 import { Drawer } from '../../../components/ui/Drawer'
 import { Input } from '../../../components/ui/Input'
+import { confirmDelete } from '../../../lib/confirmDialog'
 import type { AcademicYearStatus } from '../../../lib/mockApi/types'
 import {
   useAcademicYearsList,
@@ -138,7 +139,7 @@ export function AcademicYearsPage() {
   }
 
   async function onDelete(item: AcademicYear) {
-    const ok = window.confirm(`Hapus tahun akademik "${item.nama}"?`)
+    const ok = await confirmDelete(`Tahun akademik "${item.nama}" akan dihapus permanen.`)
     if (!ok) return
     try {
       await deleteMut.mutateAsync(item.id)

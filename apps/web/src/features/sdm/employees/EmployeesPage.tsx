@@ -3,6 +3,7 @@ import { Button } from '../../../components/ui/Button'
 import { Card } from '../../../components/ui/Card'
 import { Drawer } from '../../../components/ui/Drawer'
 import { Input } from '../../../components/ui/Input'
+import { confirmDelete } from '../../../lib/confirmDialog'
 import { downloadExcel } from '../../../lib/export/excel'
 import type { EmployeeStatus, EmployeeType } from '../../../lib/mockApi/types'
 import {
@@ -210,7 +211,7 @@ export function EmployeesPage() {
   }
 
   async function onDelete(item: Employee) {
-    const ok = window.confirm(`Hapus data "${item.nama}"?`)
+    const ok = await confirmDelete(`Data "${item.nama}" akan dihapus permanen.`)
     if (!ok) return
     try {
       await deleteMut.mutateAsync(item.id)
